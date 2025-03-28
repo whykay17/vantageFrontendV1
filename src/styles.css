@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primaryColor: #d3cfff;
+    --secondaryColor: #4285f4;
+    --textColor:#f0f8ff;
+
+    --logoFont:"Gugi", sans-serif;
+    --font1: "Roboto", sans-serif;
+    --font2: "Chakra Petch", sans-serif;
+}
+
+*{
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.m0 { margin: 0 !important; }
+.p0 { padding: 0 !important; }
+
+.flex { display: flex; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+.flex-column { display: flex; flex-direction: column; }
+
+
+.glass{
+    background-color: rgba(240, 248, 255, 0.098);
+    border-radius: 1rem;
+    backdrop-filter: blur(0.5rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.147);
+}

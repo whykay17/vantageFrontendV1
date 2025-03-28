@@ -1,0 +1,132 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 16px 5%;
+    z-index: 100;
+}
+
+.logo {
+    font-family: var(--logoFont);
+    font-weight: 400;
+    font-size: 2.5rem;
+    color: #d3cfff;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+}
+
+.tabs {
+
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 0 32px;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    a {
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--textColor);
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 8px 16px;
+    }
+
+    a:hover {
+        color: #4285f4;
+    }
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 32px;
+    color: #d3cfff;
+}
+
+.blur-background {
+    filter: blur(10px);
+    transition: backdrop-filter 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.menuContainer {
+    display: none;
+}
+
+@media (max-width: 48rem) {
+
+    .tabs {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        text-decoration: none;
+        z-index: 100;
+    }
+
+    .menuContainer {
+        display: flex;
+        position: fixed;
+        top:0vh;
+    }
+
+    .menu {
+        position: fixed;
+        right: -80vw;
+        width: 80vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        transition: 0.3s ease-in-out;
+    }
+
+    .menuContainer.active {
+        top: 0vh;
+        left: 0vw;
+        height: 100%;
+        width: 100%;
+        backdrop-filter: blur(5px);
+
+        .menu {
+            right: 0;
+        }
+    }
+
+    .menuContent{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20% 10%;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    ul {
+        font-size: 24px;
+        font-weight: 400;
+        color: aliceblue;
+    }
+
+    li {
+        list-style: none;
+        padding-bottom: 24px;
+    }
+
+    a {
+        cursor: pointer;
+        text-decoration: none;
+        color: #f1f0ff;
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 20%;
+    }
+
+}

@@ -1,0 +1,42 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+
+<nav id="navbar"class="glass">
+    <div class="logo">
+        <span>
+            Vantage
+        </span>
+    </div>
+    <div class="tabs" [class.active]="isMenuOpen">
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="reports">Reports</a></li>
+            <li><a href="tools">Tools</a></li>
+            <li><a href="requests">Requests</a></li>
+        </ul>
+    </div>
+    <div class="hamburger">
+        <div (click)="toggleMenu()">
+            ☰
+        </div>
+    </div>
+</nav>
+
+<div class="menuContainer" [class.active]="isMenuOpen">
+    <div class="menu">
+        <div class="menuContent">
+            <div class="menuClose" (click)="toggleMenu()">
+                <img src="assets/close.svg">
+            </div>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="reports">Reports</a></li>
+                <li><a href="tools">Tools</a></li>
+                <li><a href="requests">Requests</a></li>
+            </ul>
+        </div>
+        
+    </div>
+</div>
+    
