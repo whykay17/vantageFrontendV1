@@ -1,1 +1,27 @@
-<p>reports works!</p>
+<div class="container mt-4">
+    <div class="reportGrid">
+        @for (report of reports; track $index) {
+            <div class="reportCard glass" (click)="openReport($index)">
+                <h4>{{ report.title }}</h4>
+                <p>{{ report.description }}</p>
+            </div>
+        }
+    </div>
+  </div>
+  
+   @if(selectedReport != null){
+    <div class="reportModal" (click)="closeReport($event)">
+        <div class="reportPopup" (click)="$event.stopPropagation()">
+          <button class="close-btn" (click)="closeReport($event)">✖</button>
+          <h3>{{ reports[selectedReport].title }}</h3>
+          <iframe 
+            [src]="reports[selectedReport].url" 
+            frameborder="0" 
+            allowfullscreen 
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+          </iframe>
+        </div>
+      </div>
+   }
+  
+  
