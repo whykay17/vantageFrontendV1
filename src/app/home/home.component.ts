@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { YoutubeDataService } from '../services/youtubeData.service';
 
 @Component({
   selector: 'app-home',
@@ -9,4 +10,19 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  youtubeData:any;
+
+  constructor(private youtubeDataService: YoutubeDataService){}
+
+  ngOnInit(): void {
+    this.getYoutubeAPI();
+  }
+
+  getYoutubeAPI(){
+    this.youtubeDataService.getYouTubeData().subscribe(data => {
+      this.youtubeData=data;
+      console.log(this.youtubeData);
+    }
+  )
+}
 }
