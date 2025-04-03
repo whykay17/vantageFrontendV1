@@ -1,9 +1,45 @@
+.navContainer{
+    position: fixed;
+    z-index: 1;
+    height: 5rem;
+    width: 100%;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease-in-out;
+    background-image: linear-gradient(
+        rgb(28, 28, 28), 
+        rgba(28, 28, 28, 0.92), 
+        rgba(26, 26, 26, 0.80), 
+        rgba(20, 20, 20, 0.65), 
+        rgba(0, 0, 0, 0)
+    );
+    
+}
+
+.navContainer:hover{
+    opacity: 0.95;
+    background-image: linear-gradient(
+        rgb(28, 28, 28), 
+        rgba(28, 28, 28, 0.98), 
+        rgba(26, 26, 26, 0.92), 
+        rgba(20, 20, 20, 0.75), 
+        rgba(0, 0, 0, 0.1)
+    ); 
+    transition: 5s ease-in-out;
+}
+
+.navSpacer{
+    height:5rem;
+}
+
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    margin: 16px 5%;
+    width: 80%;
+    margin: 1rem 5%;
     z-index: 100;
 }
 
@@ -23,18 +59,26 @@ nav {
         justify-content: center;
         gap: 24px;
         padding: 0 32px;
+        margin: 0;
     }
 
     li {
         list-style: none;
+        transition: 0.3s ease-in-out;
+    }
+
+    li:hover{
+        transform: scale(1.1);
     }
 
     a {
+        font-size: 1.25rem;
         cursor: pointer;
         text-decoration: none;
         color: var(--textColor);
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         padding: 8px 16px;
+        transition: 0.2s ease-in-out;
     }
 
     a:hover {

@@ -24,6 +24,36 @@ export class ReportsComponent {
       title: 'Revenue Insights', 
       description: 'Quarterly revenue growth', 
       url: this.sanitize('https://lookerstudio.google.com/embed/reporting/your-other-report-url/page/abc') 
+    },
+    { 
+      title: 'Sales Report', 
+      description: 'Monthly sales analysis', 
+      url: this.sanitize('https://lookerstudio.google.com/embed/reporting/f97c925e-43c8-44f8-82b9-d3a658343df7/page/U0wsE') 
+    },
+    { 
+      title: 'User Activity', 
+      description: 'Weekly engagement overview', 
+      url: this.sanitize('https://lookerstudio.google.com/embed/reporting/your-report-url/page/xyz') 
+    },
+    { 
+      title: 'Revenue Insights', 
+      description: 'Quarterly revenue growth', 
+      url: this.sanitize('https://lookerstudio.google.com/embed/reporting/your-other-report-url/page/abc') 
+    },
+    { 
+      title: 'Sales Report', 
+      description: 'Monthly sales analysis', 
+      url: this.sanitize('https://lookerstudio.google.com/embed/reporting/f97c925e-43c8-44f8-82b9-d3a658343df7/page/U0wsE') 
+    },
+    { 
+      title: 'User Activity', 
+      description: 'Weekly engagement overview', 
+      url: this.sanitize('https://lookerstudio.google.com/embed/reporting/your-report-url/page/xyz') 
+    },
+    { 
+      title: 'Revenue Insights', 
+      description: 'Quarterly revenue growth', 
+      url: this.sanitize('https://lookerstudio.google.com/embed/reporting/your-other-report-url/page/abc') 
     }
   ];
 

@@ -1,0 +1,32 @@
+.container{
+    padding:2.5vh 2.5vw;
+    font-family: var(--font1);
+}
+
+.card{
+    padding: 2.5vh 2.5vw;
+    margin:1rem;
+    height: 90%;
+    transition: 0.3s ease-in-out;
+    color:var(--textColor);
+
+    .profile{
+        display: flex;
+        align-self: center;
+        justify-self: center;
+        height:50%;
+        width:auto;
+    }
+
+    .cardTitle{
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding-bottom: 1rem;
+    }
+}
+
+.card:hover{
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
+}
+

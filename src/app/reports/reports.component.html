@@ -1,10 +1,12 @@
 <div class="container mt-4">
-    <div class="reportGrid">
+    <div class="reportGrid row">
         @for (report of reports; track $index) {
+          <div class="col-md-6 p1">
             <div class="reportCard glass" (click)="openReport($index)">
-                <h4>{{ report.title }}</h4>
-                <p>{{ report.description }}</p>
+              <h4>{{ report.title }}</h4>
+              <p>{{ report.description }}</p>
             </div>
+          </div> 
         }
     </div>
   </div>
@@ -21,7 +23,7 @@
             sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
           </iframe>
         </div>
-      </div>
+    </div>
    }
   
   

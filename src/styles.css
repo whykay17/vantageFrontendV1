@@ -22,10 +22,18 @@
 
 
 .glass{
-    background-color: rgba(240, 248, 255, 0.098);
-    border-radius: 1rem;
+    background-color: rgba(240, 248, 255, 0.098) !important;
+    border-radius: 0.5rem!important;
     backdrop-filter: blur(0.5rem);
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.147);
+}
+
+.pt1{
+    padding-top: 1rem;
+}
+
+.p1{
+    padding: 1rem;
 }
