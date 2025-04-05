@@ -1,4 +1,5 @@
 import { Component,Renderer2 } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +9,27 @@ import { Component,Renderer2 } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
+  isAuthenticated = false;
   isMenuOpen =  false;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2,private authService:AuthService) {
+
+  }
 
   ngOnInit(): void {
-    this.isMenuOpen = false;
+    this.authService.isAuthenticated$.subscribe(auth =>{
+      this.isAuthenticated = auth;
+      console.log(this.isAuthenticated);
+    })
+  }
+
+  login(){
+    this.authService.login();
+  }
+
+  logout(){
+    this.authService.logout();
   }
 
   toggleMenu(): void {

@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card flex-center glass">
-                <img class="profile" src={{youtubeData.items[0].snippet.thumbnails.medium.url}} alt="Card image cap">
+                <img class="profile" src={{youtubeData.profileUrl}} alt="Youtube Channel Display Picture">
                 <div class="flex-column pt1">
-                    <h5 class="cardTitle">{{youtubeData.items[0].snippet.title}}</h5>
-                    <p class="">Subscribers: {{youtubeData.items[0].statistics.subscriberCount}}</p>
-                    <a href="#" class="btn btn-primary">Go to Channel</a>
+                    <h5 class="cardTitle">{{youtubeData.channelName}}</h5>
+                    <p class="">Subscribers: {{youtubeData.subscriberCount}}</p>
+                    <a href={{youtubeData.channelUrl}} class="btn btn-primary">Go to Channel</a>
                 </div>
             </div>
         </div>

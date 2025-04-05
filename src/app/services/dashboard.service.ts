@@ -5,14 +5,14 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
   })
 
-export class YoutubeDataService {
+export class DashboardService {
 
-    private apiUrl = 'http://127.0.0.1:5000/youtube-data';
+    private apiUrl = 'http://localhost:5000/youtube-data';
 
     constructor(private http:HttpClient){}
 
     getYouTubeData() {
-        return this.http.get(this.apiUrl);
-      }
+        return this.http.get<any>(this.apiUrl);
+    }
 
 }

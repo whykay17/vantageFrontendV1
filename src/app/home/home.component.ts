@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { YoutubeDataService } from '../services/youtubeData.service';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-home',
@@ -12,16 +12,15 @@ export class HomeComponent {
 
   youtubeData:any;
 
-  constructor(private youtubeDataService: YoutubeDataService){}
+  constructor(private dashboardService:DashboardService){}
 
   ngOnInit(): void {
     this.getYoutubeAPI();
   }
 
   getYoutubeAPI(){
-    this.youtubeDataService.getYouTubeData().subscribe(data => {
+    this.dashboardService.getYouTubeData().subscribe(data => {
       this.youtubeData=data;
-      console.log(this.youtubeData);
     }
   )
 }
