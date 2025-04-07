@@ -22,6 +22,8 @@ export class AuthService {
     this.http.get('http://localhost:5000/logout', { withCredentials: true }).subscribe(() => {
       localStorage.removeItem('isAuthenticated');
       this.isAuthenticatedSubject.next(false);
+      sessionStorage.clear();
+      window.location.reload();
     });
   }
 
@@ -38,6 +40,14 @@ export class AuthService {
         localStorage.removeItem('isAuthenticated');
       }
     });
+  }
+
+  getStorage(itemName:string){
+    return JSON.parse(sessionStorage.getItem(itemName)!);
+  }
+
+  setStorage(itemName: string, value: any){
+    sessionStorage.setItem(itemName, JSON.stringify(value));
   }
   
 }

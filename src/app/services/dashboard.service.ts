@@ -7,12 +7,12 @@ import { Injectable } from "@angular/core";
 
 export class DashboardService {
 
-    private apiUrl = 'http://localhost:5000/youtube-data';
+    private overview = 'http://localhost:5000/channel-overview';
 
     constructor(private http:HttpClient){}
 
-    getYouTubeData() {
-        return this.http.get<any>(this.apiUrl);
+    getDashboardData() {
+        return this.http.get<any>(this.overview);
     }
 
 }

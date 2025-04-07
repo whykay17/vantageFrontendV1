@@ -84,6 +84,22 @@ nav {
     a:hover {
         color: #4285f4;
     }
+
+    button{
+        padding: 8px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--textColor);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+      
+      button:hover {
+        color: #4285f4;
+        transform: scale(1.05);
+      }
+      
 }
 
 .hamburger {

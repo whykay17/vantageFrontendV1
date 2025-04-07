@@ -10,15 +10,10 @@
     transition: 0.3s ease-in-out;
     color:var(--textColor);
 
-    .profile{
-        display: flex;
-        align-self: center;
-        justify-self: center;
-        height:50%;
-        width:auto;
-    }
-
     .cardTitle{
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 1.5rem;
         font-weight: 600;
         padding-bottom: 1rem;
@@ -28,5 +23,30 @@
 .card:hover{
     transform: scale(1.05);
     transition: 0.3s ease-in-out;
+}
+
+.overview{
+    padding:5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        border-radius: 0.5rem;
+        height: 50%;
+    }
+
+    a{
+        background-color: var(--secondaryColor);
+        color: white;
+        text-decoration: none;
+        padding: 1rem;
+        border-radius: 1rem;
+        transition: 0.2s ease-in-out;
+    }
+
+    a:hover{
+        transform: scale(1.1);
+    }
 }
 

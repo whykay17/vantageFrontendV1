@@ -1,30 +1,44 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <div class="card flex-center glass">
-                <img class="profile" src={{youtubeData.profileUrl}} alt="Youtube Channel Display Picture">
+        <div class="col-lg-4">
+            <div class="overview card glass">
+                <img class="profile" src={{dashboardData?.profileUrl}} alt="Youtube Channel Display Picture">
                 <div class="flex-column pt1">
-                    <h5 class="cardTitle">{{youtubeData.channelName}}</h5>
-                    <p class="">Subscribers: {{youtubeData.subscriberCount}}</p>
-                    <a href={{youtubeData.channelUrl}} class="btn btn-primary">Go to Channel</a>
+                    <h5 class="cardTitle">{{dashboardData?.channelName}}</h5>
+                    <p class="">Subscribers: {{dashboardData?.subscriberCount}}</p>
+                    <a href={{dashboardData?.channelUrl}} target="_blank">Go to Channel</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-8">
             <div class="card glass">
                 <div class="card-body">
-                    <h5 class="cardTitle">Daily Performance Tracker</h5>
-                    <p>Views: 30000</p>
-                    <p>Viewtime: 3000 hrs</p>
-                    <p>Subscribers Gained: 100</p>
-                    <p>Impressions: 100</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+                    <h5 class="cardTitle">Daily Performance</h5>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Views</td>
+                                <td>10000</td>
+                            </tr>
+                            <tr>
+                                <td>Watchtime</td>
+                                <td>10hr</td>
+                            </tr>
+                            <tr>
+                                <td>Subscriber Gained</td>
+                                <td>123</td>
+                            </tr>
+                            <tr>
+                                <td>Impression</td>
+                                <td>17000</td>
+                            </tr>
+                        </tbody>
+                    </table>   
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Latest Video Stats</h5>
@@ -32,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Best Performing Video (30 Days)</h5>
@@ -42,7 +56,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Engagement Insights</h5>
@@ -50,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Subscriber Growth Trend</h5>
@@ -60,7 +74,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Audience Insights</h5>
@@ -68,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Traffic Sources</h5>

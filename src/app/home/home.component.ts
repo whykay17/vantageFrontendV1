@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { DashboardService } from '../services/dashboard.service';
 
 @Component({
@@ -10,18 +11,24 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class HomeComponent {
 
-  youtubeData:any;
+  dashboardData: any;
 
-  constructor(private dashboardService:DashboardService){}
+  constructor(private authService:AuthService ,private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
-    this.getYoutubeAPI();
+    var currentData = this.authService.getStorage('dashboardData');
+    if (currentData) {
+      this.dashboardData = currentData;
+    } else {
+      this.getDashboardAPI();
+     }
   }
 
-  getYoutubeAPI(){
-    this.dashboardService.getYouTubeData().subscribe(data => {
-      this.youtubeData=data;
+  getDashboardAPI() {
+    this.dashboardService.getDashboardData().subscribe(data => {
+      this.dashboardData = data;
+      sessionStorage.setItem('dashboardData', JSON.stringify(this.dashboardData));
     }
-  )
-}
+    )
+  }
 }

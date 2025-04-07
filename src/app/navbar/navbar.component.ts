@@ -20,7 +20,6 @@ export class NavbarComponent {
   ngOnInit(): void {
     this.authService.isAuthenticated$.subscribe(auth =>{
       this.isAuthenticated = auth;
-      console.log(this.isAuthenticated);
     })
   }
 
