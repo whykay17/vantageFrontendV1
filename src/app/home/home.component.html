@@ -4,44 +4,95 @@
             <div class="overview card glass">
                 <img class="profile" src={{dashboardData?.profileUrl}} alt="Youtube Channel Display Picture">
                 <div class="flex-column pt1">
-                    <h5 class="cardTitle">{{dashboardData?.channelName}}</h5>
-                    <p class="">Subscribers: {{dashboardData?.subscriberCount}}</p>
-                    <a href={{dashboardData?.channelUrl}} target="_blank">Go to Channel</a>
+                    <h5 class="profileName flex-center">{{dashboardData?.channelName}}</h5>
+                    <p class="subsCount">Subscribers: {{dashboardData?.subscriberCount}}</p>
+                    <a href={{dashboardData?.channelUrl}} target="_blank" class="flex-center">Go to Channel</a>
                 </div>
             </div>
         </div>
         <div class="col-lg-8">
             <div class="card glass">
-                <div class="card-body">
-                    <h5 class="cardTitle">Daily Performance</h5>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Subscriber Gained</td>
-                                <td>{{periodData?.current.subscribersGained}}</td>
-                            </tr>
-                            <tr>
-                                <td>Views</td>
-                                <td>{{periodData?.current.views}}</td>
-                            </tr>
-                            <tr>
-                                <td>Likes</td>
-                                <td>{{periodData?.current.likes}}</td>
-                            </tr>
-                            <tr>
-                                <td>Comments</td>
-                                <td>{{periodData?.current.comments}}</td>
-                            </tr>
-                            <tr>
-                                <td>Watchtime</td>
-                                <td>{{periodData?.current.estimatedMinutesWatched/60}}</td>
-                            </tr>
-                            <tr>
-                                <td>Average Watch Percentage</td>
-                                <td>{{periodData?.current.averageViewPercentage}}</td>
-                            </tr>
-                        </tbody>
-                    </table>   
+                <div class="period">
+                    <div class="periodHead">
+                        <h5 class="cardTitle">Performance</h5>
+                        <div>
+                            <select [(ngModel)]="periodRange" (change)="getPeriodAPI(periodRange)">
+                                @for(item of rangeData;track item){
+                                <option [value]="item.value">
+                                    {{item.name}}
+                                </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row fw-bold border-bottom py-2">
+                            <div class="col-6">Metric</div>
+                            <div class="col-4">Current</div>
+                            <div class="col-2">Change</div>
+                        </div>
+
+                        <div class="row py-2 border-bottom">
+                            <div class="col-6">Subscriber Gained</div>
+                            <div class="col-4">{{ periodData?.current.subscribersGained }}</div>
+                            <div class="col-2"
+                                [ngClass]="getChangeClass(getChange(periodData?.current.subscribersGained, periodData?.previous.subscribersGained))">
+                                {{ getChange(periodData?.current.subscribersGained,
+                                periodData?.previous.subscribersGained) | number:'1.0-1' }}%
+                            </div>
+                        </div>
+
+                        <div class="row py-2 border-bottom">
+                            <div class="col-6">Views</div>
+                            <div class="col-4">{{ periodData?.current.views }}</div>
+                            <div class="col-2"
+                                [ngClass]="getChangeClass(getChange(periodData?.current.views, periodData?.previous.views))">
+                                {{ getChange(periodData?.current.views, periodData?.previous.views) | number:'1.0-1' }}%
+                            </div>
+                        </div>
+
+                        <div class="row py-2 border-bottom">
+                            <div class="col-6">Likes</div>
+                            <div class="col-4">{{ periodData?.current.likes }}</div>
+                            <div class="col-2"
+                                [ngClass]="getChangeClass(getChange(periodData?.current.likes, periodData?.previous.likes))">
+                                {{ getChange(periodData?.current.likes, periodData?.previous.likes) | number:'1.0-1' }}%
+                            </div>
+                        </div>
+
+                        <div class="row py-2 border-bottom">
+                            <div class="col-6">Comments</div>
+                            <div class="col-4">{{ periodData?.current.comments }}</div>
+                            <div class="col-2"
+                                [ngClass]="getChangeClass(getChange(periodData?.current.comments, periodData?.previous.comments))">
+                                {{ getChange(periodData?.current.comments, periodData?.previous.comments) |
+                                number:'1.0-1' }}%
+                            </div>
+                        </div>
+
+                        <div class="row py-2 border-bottom">
+                            <div class="col-6">Watchtime (hours)</div>
+                            <div class="col-4">{{ periodData?.current.estimatedMinutesWatched / 60 | number:'1.2-2' }}
+                            </div>
+                            <div class="col-2"
+                                [ngClass]="getChangeClass(getChange(periodData?.current.estimatedMinutesWatched, periodData?.previous.estimatedMinutesWatched))">
+                                {{ getChange(periodData?.current.estimatedMinutesWatched,
+                                periodData?.previous.estimatedMinutesWatched) | number:'1.0-1' }}%
+                            </div>
+                        </div>
+
+                        <div class="row py-2 border-bottom">
+                            <div class="col-6">Avg. Watch %</div>
+                            <div class="col-4">{{ periodData?.current.averageViewPercentage | number:'1.1-2' }}</div>
+                            <div class="col-2"
+                                [ngClass]="getChangeClass(getChange(periodData?.current.averageViewPercentage, periodData?.previous.averageViewPercentage))">
+                                {{ getChange(periodData?.current.averageViewPercentage,
+                                periodData?.previous.averageViewPercentage) | number:'1.0-1' }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,7 +101,8 @@
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Latest Video Stats</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
                 </div>
             </div>
         </div>
@@ -58,7 +110,8 @@
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Best Performing Video (30 Days)</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
                 </div>
             </div>
         </div>
@@ -68,7 +121,8 @@
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Engagement Insights</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
                 </div>
             </div>
         </div>
@@ -76,7 +130,8 @@
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Subscriber Growth Trend</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
                 </div>
             </div>
         </div>
@@ -86,7 +141,8 @@
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Audience Insights</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
                 </div>
             </div>
         </div>
@@ -94,10 +150,10 @@
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Traffic Sources</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
                 </div>
             </div>
         </div>
     </div>
-      
 </div>

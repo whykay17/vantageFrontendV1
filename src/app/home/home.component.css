@@ -16,13 +16,11 @@
         justify-content: center;
         font-size: 1.5rem;
         font-weight: 600;
-        padding-bottom: 1rem;
     }
 }
 
 .card:hover{
-    transform: scale(1.05);
-    transition: 0.3s ease-in-out;
+    transform: scale(1.01);
 }
 
 .overview{
@@ -36,17 +34,104 @@
         height: 50%;
     }
 
+    .profileName{
+        font-size: 1.75rem;
+        padding: 1rem;
+    }
+
+    .subsCount{
+        font-size: 1.1rem;
+    }
+
     a{
         background-color: var(--secondaryColor);
         color: white;
         text-decoration: none;
-        padding: 1rem;
+        padding: 0.75rem;
         border-radius: 1rem;
         transition: 0.2s ease-in-out;
     }
 
     a:hover{
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 }
+
+.period {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5%;
+  width: 100%;
+
+  .periodHead {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 0.5rem;
+
+    h5 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #ffffffdd;
+    }
+
+    select {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        color: #ffffff;
+        border-radius: 8px;
+        padding: 0.35rem 0.75rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      
+        &:hover {
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        option{
+            color:black;
+        }
+      }
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+
+  .col-6{
+    font-size: 1.15rem;
+  }
+
+  .metric-row:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    transition: background-color 0.3s ease;
+  }
+
+  .positive {
+    color: #31ff7c;
+    font-weight: 500;
+  }
+
+  .negative {
+    color: #ff3838;
+    font-weight: 500;
+  }
+
+  .neutral {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  .container-fluid {
+    width: 100%;
+  }
+}
+
 
