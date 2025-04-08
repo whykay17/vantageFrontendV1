@@ -5,14 +5,22 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
   })
 
+
+
 export class DashboardService {
 
-    private overview = 'http://localhost:5000/channel-overview';
+    backendURL = 'http://localhost:5000/'
+    private overview = this.backendURL+'channel-overview';
+    private period = this.backendURL+'period-stats?'
 
     constructor(private http:HttpClient){}
 
     getDashboardData() {
         return this.http.get<any>(this.overview);
+    }
+
+    getPeriodStats(range:number){
+        return this.http.get<any>(this.period+'period='+range);
     }
 
 }

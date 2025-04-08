@@ -38,6 +38,7 @@ export class AuthService {
       error: () => {
         this.isAuthenticatedSubject.next(false);
         localStorage.removeItem('isAuthenticated');
+        sessionStorage.clear();
       }
     });
   }

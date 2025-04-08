@@ -17,20 +17,28 @@
                     <table>
                         <tbody>
                             <tr>
+                                <td>Subscriber Gained</td>
+                                <td>{{periodData?.current.subscribersGained}}</td>
+                            </tr>
+                            <tr>
                                 <td>Views</td>
-                                <td>10000</td>
+                                <td>{{periodData?.current.views}}</td>
+                            </tr>
+                            <tr>
+                                <td>Likes</td>
+                                <td>{{periodData?.current.likes}}</td>
+                            </tr>
+                            <tr>
+                                <td>Comments</td>
+                                <td>{{periodData?.current.comments}}</td>
                             </tr>
                             <tr>
                                 <td>Watchtime</td>
-                                <td>10hr</td>
+                                <td>{{periodData?.current.estimatedMinutesWatched/60}}</td>
                             </tr>
                             <tr>
-                                <td>Subscriber Gained</td>
-                                <td>123</td>
-                            </tr>
-                            <tr>
-                                <td>Impression</td>
-                                <td>17000</td>
+                                <td>Average Watch Percentage</td>
+                                <td>{{periodData?.current.averageViewPercentage}}</td>
                             </tr>
                         </tbody>
                     </table>   
