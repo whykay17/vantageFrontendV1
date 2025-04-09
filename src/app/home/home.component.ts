@@ -4,13 +4,12 @@ import { AuthService } from '../services/auth.service';
 import { DashboardService } from '../services/dashboard.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { error } from 'console';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
-
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule,NgClass,DecimalPipe],
+  imports: [FormsModule,NgClass,DecimalPipe,DatePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -18,6 +17,7 @@ export class HomeComponent {
 
   dashboardData: any;
   periodData:any;
+  latestVideoData:any;
 
   periodRange=7;
   rangeData = [
@@ -32,12 +32,15 @@ export class HomeComponent {
   ngOnInit(): void {
     var storedOverview = this.authService.getStorage('overviewData');
     var storedPeriod = this.authService.getStorage('periodData');
+    var storedLatestVideo = this.authService.getStorage('latestVideoData');
     if (storedOverview) {
       this.dashboardData = storedOverview;
       this.periodData = storedPeriod;
+      this.latestVideoData = storedLatestVideo;
     } else {
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
+      this.getLatestVideoAPI();
      }
   }
 
@@ -60,6 +63,20 @@ export class HomeComponent {
       next: (data) => {
         this.periodData = data;
         sessionStorage.setItem('periodData', JSON.stringify(data));
+        this.spinner.hide();
+      },
+      error: () => {
+        this.spinner.hide();
+      }
+    });
+  }
+
+  getLatestVideoAPI(){
+    this.spinner.show();
+    this.dashboardService.getLatestVideoStats().subscribe({
+      next:(data) => {
+        this.latestVideoData=data;
+        sessionStorage.setItem('latestVideoData', JSON.stringify(data));
         this.spinner.hide();
       },
       error: () => {

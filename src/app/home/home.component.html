@@ -6,7 +6,7 @@
                 <div class="flex-column pt1">
                     <h5 class="profileName flex-center">{{dashboardData?.channelName}}</h5>
                     <p class="subsCount">Subscribers: {{dashboardData?.subscriberCount}}</p>
-                    <a href={{dashboardData?.channelUrl}} target="_blank" class="flex-center">Go to Channel</a>
+                    <a href={{dashboardData?.channelUrl}} target="_blank" class="btn flex-center">Go to Channel</a>
                 </div>
             </div>
         </div>
@@ -29,14 +29,14 @@
                     <div class="container">
                         <div class="row fw-bold border-bottom py-2">
                             <div class="col-6">Metric</div>
-                            <div class="col-4">Current</div>
-                            <div class="col-2">Change</div>
+                            <div class="col-md-4 col-3">Current</div>
+                            <div class="col-md-2 col-3">Change</div>
                         </div>
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Subscriber Gained</div>
-                            <div class="col-4">{{ periodData?.current.subscribersGained }}</div>
-                            <div class="col-2"
+                            <div class="col-md-4 col-3">{{ periodData?.current.subscribersGained }}</div>
+                            <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current.subscribersGained, periodData?.previous.subscribersGained))">
                                 {{ getChange(periodData?.current.subscribersGained,
                                 periodData?.previous.subscribersGained) | number:'1.0-1' }}%
@@ -45,8 +45,8 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Views</div>
-                            <div class="col-4">{{ periodData?.current.views }}</div>
-                            <div class="col-2"
+                            <div class="col-md-4 col-3">{{ periodData?.current.views }}</div>
+                            <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current.views, periodData?.previous.views))">
                                 {{ getChange(periodData?.current.views, periodData?.previous.views) | number:'1.0-1' }}%
                             </div>
@@ -54,8 +54,8 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Likes</div>
-                            <div class="col-4">{{ periodData?.current.likes }}</div>
-                            <div class="col-2"
+                            <div class="col-md-4 col-3">{{ periodData?.current.likes }}</div>
+                            <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current.likes, periodData?.previous.likes))">
                                 {{ getChange(periodData?.current.likes, periodData?.previous.likes) | number:'1.0-1' }}%
                             </div>
@@ -63,8 +63,8 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Comments</div>
-                            <div class="col-4">{{ periodData?.current.comments }}</div>
-                            <div class="col-2"
+                            <div class="col-md-4 col-3">{{ periodData?.current.comments }}</div>
+                            <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current.comments, periodData?.previous.comments))">
                                 {{ getChange(periodData?.current.comments, periodData?.previous.comments) |
                                 number:'1.0-1' }}%
@@ -73,9 +73,9 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Watchtime (hours)</div>
-                            <div class="col-4">{{ periodData?.current.estimatedMinutesWatched / 60 | number:'1.2-2' }}
+                            <div class="col-md-4 col-3">{{ periodData?.current.estimatedMinutesWatched / 60 | number:'1.2-2' }}
                             </div>
-                            <div class="col-2"
+                            <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current.estimatedMinutesWatched, periodData?.previous.estimatedMinutesWatched))">
                                 {{ getChange(periodData?.current.estimatedMinutesWatched,
                                 periodData?.previous.estimatedMinutesWatched) | number:'1.0-1' }}%
@@ -84,8 +84,8 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Avg. Watch %</div>
-                            <div class="col-4">{{ periodData?.current.averageViewPercentage | number:'1.1-2' }}</div>
-                            <div class="col-2"
+                            <div class="col-md-4 col-3">{{ periodData?.current.averageViewPercentage | number:'1.1-2' }}</div>
+                            <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current.averageViewPercentage, periodData?.previous.averageViewPercentage))">
                                 {{ getChange(periodData?.current.averageViewPercentage,
                                 periodData?.previous.averageViewPercentage) | number:'1.0-1' }}%
@@ -99,12 +99,44 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="card glass">
-                <div class="card-body">
-                    <h5 class="card-title">Latest Video Stats</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                <div class="latestVideo">
+                    <div class="video-header">
+                      <img [src]="latestVideoData.thumbnail" alt="Video Thumbnail" class="video-thumbnail" />
+                      <div class="video-info">
+                        <h3 class="video-title">{{ latestVideoData.title }}</h3>
+                        <p class="video-date">Published on {{ latestVideoData.publishedAt | date: 'mediumDate' }}</p>
+                        <a [href]="latestVideoData.url" target="_blank" class="btn">Watch on YouTube</a>
+                      </div>
+                    </div>
+                  
+                    <div class="video-stats">
+                      <div class="stat-item">
+                        <span class="stat-label">Views</span>
+                        <span class="stat-value">{{ latestVideoData.views | number }}</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="stat-label">Watch Time (mins)</span>
+                        <span class="stat-value">{{ latestVideoData.estimatedMinutesWatched | number: '1.0-0' }}</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="stat-label">Avg. View Duration</span>
+                        <span class="stat-value">{{ latestVideoData.averageViewDuration}}</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="stat-label">Avg. View %</span>
+                        <span class="stat-value">{{ latestVideoData.averageViewPercentage | number:'1.0-1' }}%</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="stat-label">Subscribers Gained</span>
+                        <span class="stat-value">{{ latestVideoData.subscribersGained | number }}</span>
+                      </div>
+                      <div class="stat-item">
+                        <span class="stat-label">Shares</span>
+                        <span class="stat-value">{{ latestVideoData.shares | number }}</span>
+                      </div>
+                    </div>
                 </div>
-            </div>
+            </div>       
         </div>
         <div class="col-lg-4">
             <div class="card glass">

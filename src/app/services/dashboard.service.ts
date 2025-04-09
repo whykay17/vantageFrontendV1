@@ -12,6 +12,7 @@ export class DashboardService {
     backendURL = 'http://localhost:5000/'
     private overview = this.backendURL+'channel-overview';
     private period = this.backendURL+'period-stats?'
+    private latest = this.backendURL+'latest-video'
 
     constructor(private http:HttpClient){}
 
@@ -21,6 +22,10 @@ export class DashboardService {
 
     getPeriodStats(range:number){
         return this.http.get<any>(this.period+'period='+range);
+    }
+
+    getLatestVideoStats(){
+        return this.http.get<any>(this.latest);
     }
 
 }

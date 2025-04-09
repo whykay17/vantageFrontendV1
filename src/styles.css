@@ -37,3 +37,9 @@
 .p1{
     padding: 1rem;
 }
+
+@media (max-width: 650px) {
+    html {
+      font-size: 14px;
+    }
+  }
