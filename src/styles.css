@@ -38,8 +38,14 @@
     padding: 1rem;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 900px) {
     html {
       font-size: 14px;
     }
   }
+
+@media (min-width:2560px){
+    html{
+        font-size:18px;
+    }
+}
