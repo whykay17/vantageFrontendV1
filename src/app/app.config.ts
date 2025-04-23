@@ -5,7 +5,9 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { AuthInterceptor } from './auth.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +17,12 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       NgxSpinnerModule,
       BrowserAnimationsModule
-    )
+    ),
+    provideAnimations(),
+        providePrimeNG({
+            theme: {
+                preset: Aura
+            }
+        })
   ]
 };
