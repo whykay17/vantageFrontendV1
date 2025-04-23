@@ -7,11 +7,11 @@ import { error } from 'console';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [FormsModule,NgClass,DecimalPipe,DatePipe],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    standalone: true,
+    imports: [ NgClass, DecimalPipe, DatePipe],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent {
 

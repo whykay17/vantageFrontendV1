@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { DomSanitizer,SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-reports',
-  standalone: true,
-  imports: [],
-  templateUrl: './reports.component.html',
-  styleUrl: './reports.component.css'
+    selector: 'app-reports',
+    standalone: true,
+    imports: [],
+    templateUrl: './reports.component.html',
+    styleUrl: './reports.component.css'
 })
 export class ReportsComponent {
   reports = [

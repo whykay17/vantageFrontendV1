@@ -16,7 +16,7 @@
                     <div class="periodHead">
                         <h5 class="cardTitle">Performance</h5>
                         <div>
-                            <select [(ngModel)]="periodRange" (change)="getPeriodAPI(periodRange)">
+                            <select (change)="getPeriodAPI(periodRange)">
                                 @for(item of rangeData;track item){
                                 <option [value]="item.value">
                                     {{item.name}}
