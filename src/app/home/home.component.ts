@@ -6,10 +6,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { error } from 'console';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
+import { SelectModule } from 'primeng/select'
+import { DropdownModule } from 'primeng/dropdown'
+import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [ NgClass, DecimalPipe, DatePipe],
+    imports: [ NgClass, DecimalPipe, DatePipe,SelectModule,DropdownModule,FormsModule,ButtonModule],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })

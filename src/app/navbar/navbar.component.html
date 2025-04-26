@@ -29,7 +29,7 @@
     </nav>
 </div>
 <div class="navSpacer"></div>
-<div class="menuContainer" [class.active]="isMenuOpen">
+<!-- <div class="menuContainer" [class.active]="isMenuOpen">
     <div class="menu">
         <div class="menuContent">
             <button class="menuClose" (click)="toggleMenu()">✖</button>
@@ -46,6 +46,19 @@
         </div>
         
     </div>
-</div>
-
+</div> -->
+<p-drawer [(visible)]="isMenuOpen" header="Menu" position="right">
+    <div class="menuContent">
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="reports">Reports</a></li>
+            <li><a href="tools">Tools</a></li>
+            <li><a href="requests">Requests</a></li>
+            <li>
+                @if(!isAuthenticated){<p-button (click)="login()" class="glass">Login</p-button>}
+                @else{<p-button (click)="logout()" class="glass">Logout</p-button>}
+            </li>
+        </ul>
+    </div>
+</p-drawer>
     

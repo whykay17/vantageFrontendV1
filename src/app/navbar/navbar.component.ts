@@ -1,10 +1,12 @@
 import { Component,Renderer2 } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'app-navbar',
     standalone: true,
-    imports: [],
+    imports: [DrawerModule,ButtonModule],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css'
 })

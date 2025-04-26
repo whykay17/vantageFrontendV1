@@ -6,7 +6,9 @@
                 <div class="flex-column pt1">
                     <h5 class="profileName flex-center">{{dashboardData?.channelName}}</h5>
                     <p class="subsCount">Subscribers: {{dashboardData?.subscriberCount}}</p>
-                    <a href={{dashboardData?.channelUrl}} target="_blank" class="btn flex-center">Go to Channel</a>
+                    <a href={{dashboardData?.channelUrl}} target="_blank" rel="noopener noreferrer" pButton class="extButton">
+                        Go to Channel
+                    </a>
                 </div>
             </div>
         </div>
@@ -16,13 +18,15 @@
                     <div class="periodHead">
                         <h5 class="cardTitle">Performance</h5>
                         <div>
-                            <select (change)="getPeriodAPI(periodRange)">
-                                @for(item of rangeData;track item){
-                                <option [value]="item.value">
-                                    {{item.name}}
-                                </option>
-                                }
-                            </select>
+                            <p-dropdown
+                                [options]="rangeData"
+                                [(ngModel)]="periodRange"
+                                optionLabel="name"
+                                optionValue="value"
+                                placeholder="Select Range"
+                                styleClass="w-full md:w-14rem"
+                                (onChange)="getPeriodAPI(periodRange)"
+                                ></p-dropdown>
                         </div>
                     </div>
 
@@ -106,7 +110,9 @@
                       <div class="video-info">
                         <h3 class="video-title">{{ latestVideoData.title }}</h3>
                         <p class="video-date">Published on {{ latestVideoData.publishedAt | date: 'mediumDate' }}</p>
-                        <a [href]="latestVideoData.url" target="_blank" class="btn">Watch on YouTube</a>
+                        <a href={{latestVideoData.url}} target="_blank" rel="noopener noreferrer" pButton class="extButton">
+                            Watch on Youtube
+                        </a>
                       </div>
                     </div>
                   

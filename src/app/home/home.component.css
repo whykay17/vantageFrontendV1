@@ -22,7 +22,7 @@
     transform: scale(1.01);
 }
 
-.btn {
+/* .btn {
     display: inline-block;
     background-color: var(--secondaryColor);
     color: white;
@@ -35,6 +35,11 @@
     &:hover {
       background-color: #3467ff;
     }
+  } */
+
+  .extButton{
+    text-decoration:none;
+    color: white;
   }
 
 .overview{
@@ -171,7 +176,7 @@
   
     .video-stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(max(160px, 30%), 1fr));;
+      grid-template-columns: repeat(auto-fit, minmax(max(160px, 30%), 1fr));
       gap: 1rem;
       width: 100%;
   
