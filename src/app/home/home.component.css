@@ -20,22 +20,8 @@
 
 .card:hover{
     transform: scale(1.01);
+    box-shadow: 6px 6px 6px rgba(51, 51, 51, 0.147);
 }
-
-/* .btn {
-    display: inline-block;
-    background-color: var(--secondaryColor);
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: 0.3s ease;
-
-    &:hover {
-      background-color: #3467ff;
-    }
-  } */
 
   .extButton{
     text-decoration:none;
@@ -143,6 +129,13 @@
 .latestVideo {
     height:auto;
     padding: 1rem;
+
+    h5{
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   
     .video-header {
       display: flex;
@@ -156,6 +149,7 @@
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         margin: 0 1.5rem 0.5rem 0;
+        cursor: pointer;
       }
   
       .video-info {
@@ -201,6 +195,53 @@
         }
       }
     }
+  }
+
+  .bestVideo{
+    padding: 1rem;
+
+    .bestHead{
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+      align-items: center;
+      padding-bottom: 1rem;
+
+      h5{
+        font-size: 1.75rem;
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+
+    .bestContent{
+
+      margin: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .bestThumbnail{
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        margin-bottom: 1rem;
+      }
+
+      .video-title{
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+  
+      .score{
+        font-size: 2rem;
+        font-weight: 600;
+        color: #31ff7c;
+      }
+    }
+
+    
   }
   
   

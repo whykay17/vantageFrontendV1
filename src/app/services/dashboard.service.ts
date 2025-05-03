@@ -13,6 +13,7 @@ export class DashboardService {
     private overview = this.backendURL+'channel-overview';
     private period = this.backendURL+'period-stats?'
     private latest = this.backendURL+'latest-video'
+    private best = this.backendURL+'best-video?'
 
     constructor(private http:HttpClient){}
 
@@ -26,6 +27,10 @@ export class DashboardService {
 
     getLatestVideoStats(){
         return this.http.get<any>(this.latest);
+    }
+
+    getBestVideo(range:number){
+        return this.http.get<any>(this.best+'period='+range);
     }
 
 }

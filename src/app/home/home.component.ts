@@ -9,10 +9,11 @@ import { NgClass } from '@angular/common';
 import { SelectModule } from 'primeng/select'
 import { DropdownModule } from 'primeng/dropdown'
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [ NgClass, DecimalPipe, DatePipe,SelectModule,DropdownModule,FormsModule,ButtonModule],
+    imports: [ NgClass, DecimalPipe, DatePipe,SelectModule,DropdownModule,FormsModule,ButtonModule,TooltipModule],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
@@ -21,8 +22,10 @@ export class HomeComponent {
   dashboardData: any;
   periodData:any;
   latestVideoData:any;
+  bestVideoData:any;
 
   periodRange=7;
+  bestRange=90;
   rangeData = [
     { name: "7 days", value: 7 },
     { name: "1 Month", value: 28 },
@@ -36,14 +39,17 @@ export class HomeComponent {
     var storedOverview = this.authService.getStorage('overviewData');
     var storedPeriod = this.authService.getStorage('periodData');
     var storedLatestVideo = this.authService.getStorage('latestVideoData');
+    var storedBestVideo = this.authService.getStorage('bestVideoData');
     if (storedOverview) {
       this.dashboardData = storedOverview;
       this.periodData = storedPeriod;
       this.latestVideoData = storedLatestVideo;
+      this.bestVideoData = storedBestVideo;
     } else {
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
       this.getLatestVideoAPI();
+      this.getBestVideoAPI(this.bestRange);
      }
   }
 
@@ -65,6 +71,7 @@ export class HomeComponent {
     this.dashboardService.getPeriodStats(range).subscribe({
       next: (data) => {
         this.periodData = data;
+        this.periodRange=range;
         sessionStorage.setItem('periodData', JSON.stringify(data));
         this.spinner.hide();
       },
@@ -88,6 +95,21 @@ export class HomeComponent {
     });
   }
 
+  getBestVideoAPI(range:number){
+    this.spinner.show();
+    this.dashboardService.getBestVideo(range).subscribe({
+      next:(data) => {
+        this.bestVideoData=data;
+        this.bestRange=range;
+        sessionStorage.setItem('latestBestData',JSON.stringify(data));
+        this.spinner.hide();
+      },
+      error:() => {
+        this.spinner.hide();
+      }
+    })
+  }
+
   getChange(current: number, previous: number): number {
     if (previous === 0) {
       return current === 0 ? 0 : 100;
@@ -100,6 +122,10 @@ export class HomeComponent {
     if (change > 0) return 'positive';     // green
     if (change < 0) return 'negative';      // red
     return 'neutral';                       // neutral
+  }
+
+  openVideo(url:string){
+    window.open(url,'_blank');
   }
   
 }

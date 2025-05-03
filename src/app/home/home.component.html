@@ -104,15 +104,12 @@
         <div class="col-lg-8">
             <div class="card glass">
                 <div class="latestVideo">
-                    <h5 class="cardTitle p1">Latest Video</h5>
+                    <h5>Latest Video</h5>
                     <div class="video-header">
-                      <img [src]="latestVideoData.thumbnail" alt="Video Thumbnail" class="video-thumbnail" />
+                      <img [src]="latestVideoData?.thumbnail" alt="Video Thumbnail" class="video-thumbnail" (click)="openVideo(latestVideoData.url)" />
                       <div class="video-info">
                         <h3 class="video-title">{{ latestVideoData.title }}</h3>
                         <p class="video-date">Published on {{ latestVideoData.publishedAt | date: 'mediumDate' }}</p>
-                        <a href={{latestVideoData.url}} target="_blank" rel="noopener noreferrer" pButton class="extButton">
-                            Watch on Youtube
-                        </a>
                       </div>
                     </div>
                   
@@ -147,10 +144,31 @@
         </div>
         <div class="col-lg-4">
             <div class="card glass">
-                <div class="card-body">
-                    <h5 class="card-title">Best Performing Video (30 Days)</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                <div class="bestVideo">
+                    <div class="bestHead">
+                        <h5>Best Video</h5>
+                        <div>
+                            <p-dropdown
+                                [options]="rangeData"
+                                [(ngModel)]="bestRange"
+                                optionLabel="name"
+                                optionValue="value"
+                                placeholder="Select Range"
+                                styleClass="w-full md:w-14rem"
+                                (onChange)="getBestVideoAPI(bestRange)"
+                                ></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="bestContent">
+                        <img [src]="bestVideoData.thumbnail" alt="Video Thumbnail" class="bestThumbnail" (click)="openVideo(bestVideoData.url)" />
+                        <h3 class="video-title">{{ bestVideoData.title}}</h3>
+                        <div class="score">
+                            <h2 pTooltip="Performance compared to average video performance in selected time period"
+                                tooltipPosition="top" showDelay="500" hideDelay="300">
+                                {{ bestVideoData.percentScore | number:'1.0-1' }}%
+                            </h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
