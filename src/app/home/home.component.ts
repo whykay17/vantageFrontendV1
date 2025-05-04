@@ -24,13 +24,14 @@ export class HomeComponent {
   latestVideoData:any;
   bestVideoData:any;
 
-  periodRange=7;
+  periodRange=28;
   bestRange=90;
   rangeData = [
     { name: "7 days", value: 7 },
     { name: "1 Month", value: 28 },
     { name: "3 Months", value: 90 },
-    { name: "1 Year", value: 365 }
+    { name: "1 Year", value: 365 },
+    { name:"All time",value:5000}
   ];
 
   constructor(private spinner:NgxSpinnerService,private authService:AuthService ,private dashboardService: DashboardService) { }
@@ -101,7 +102,7 @@ export class HomeComponent {
       next:(data) => {
         this.bestVideoData=data;
         this.bestRange=range;
-        sessionStorage.setItem('latestBestData',JSON.stringify(data));
+        sessionStorage.setItem('bestVideoData',JSON.stringify(data));
         this.spinner.hide();
       },
       error:() => {

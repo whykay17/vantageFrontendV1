@@ -142,16 +142,44 @@
       flex-wrap: wrap;
       align-items: center;
       margin-bottom: 1rem;
-  
-      .video-thumbnail {
+
+      .thumbnailContainer{
         width: 30%;
         height: auto;
+        margin: 0 1.5rem 0.5rem 0;
+      }
+
+      .youtubeLogo{
+        transition: .5s ease;
+        opacity: 0;
+        position: fixed;
+        width: 12%;
+      }
+    
+      .latestThumbnail {
+        width: 100%;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        margin: 0 1.5rem 0.5rem 0;
         cursor: pointer;
       }
-  
+
+      .thumbnailContainer:hover .latestThumbnail {
+        opacity: 0.3;
+        background-image: radial-gradient(
+        rgba(28, 28, 28, 0.979), 
+        rgba(28, 28, 28, 0.904), 
+        rgba(26, 26, 26, 0.801), 
+        rgba(20, 20, 20, 0.356), 
+        rgba(0, 0, 0, 0.062)
+        ); 
+        filter: blur(5px);
+        z-index: 1;
+      }
+      
+      .thumbnailContainer:hover .youtubeLogo {
+        opacity: 1;
+      }
+      
       .video-info {
         flex: 1;
         min-width: 250px;
@@ -223,15 +251,43 @@
       flex-direction: column;
 
       .bestThumbnail{
+        width: 90%;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         cursor: pointer;
         margin-bottom: 1rem;
       }
 
+        .thumbnailContainer:hover .bestThumbnail {
+          opacity: 0.3;
+          background-image: radial-gradient(
+          rgba(28, 28, 28, 0.979), 
+          rgba(28, 28, 28, 0.904), 
+          rgba(26, 26, 26, 0.801), 
+          rgba(20, 20, 20, 0.356), 
+          rgba(0, 0, 0, 0.062)
+          ); 
+          filter: blur(5px);
+          z-index: 1;
+          box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.904);
+        }
+        
+        .thumbnailContainer:hover .youtubeLogo {
+          opacity: 1;
+        }
+
+      .youtubeLogo{
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        width: 40%;
+        margin-bottom: 1rem;
+      }
+
       .video-title{
         font-size: 1.5rem;
         margin-bottom: 1rem;
+        text-align: center;
       }
   
       .score{

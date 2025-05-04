@@ -106,7 +106,10 @@
                 <div class="latestVideo">
                     <h5>Latest Video</h5>
                     <div class="video-header">
-                      <img [src]="latestVideoData?.thumbnail" alt="Video Thumbnail" class="video-thumbnail" (click)="openVideo(latestVideoData.url)" />
+                        <div class="thumbnailContainer flex-center">
+                            <img [src]="latestVideoData?.thumbnail" alt="Video Thumbnail" class="latestThumbnail" (click)="openVideo(latestVideoData.url)" />
+                            <img src="assets/youtubeLogo.png" class="youtubeLogo">
+                        </div> 
                       <div class="video-info">
                         <h3 class="video-title">{{ latestVideoData.title }}</h3>
                         <p class="video-date">Published on {{ latestVideoData.publishedAt | date: 'mediumDate' }}</p>
@@ -160,8 +163,12 @@
                         </div>
                     </div>
                     <div class="bestContent">
-                        <img [src]="bestVideoData.thumbnail" alt="Video Thumbnail" class="bestThumbnail" (click)="openVideo(bestVideoData.url)" />
+                        <div class="thumbnailContainer  flex-center">
+                            <img [src]="bestVideoData.thumbnail" alt="Video Thumbnail" class="bestThumbnail" (click)="openVideo(bestVideoData.url)" />
+                            <img src="assets/youtubeLogo.png" class="youtubeLogo">
+                        </div>                       
                         <h3 class="video-title">{{ bestVideoData.title}}</h3>
+                        <p class="video-date">Published on {{bestVideoData.publishedAt | date: 'mediumDate'}}</p>
                         <div class="score">
                             <h2 pTooltip="Performance compared to average video performance in selected time period"
                                 tooltipPosition="top" showDelay="500" hideDelay="300">
