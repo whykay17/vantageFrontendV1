@@ -172,7 +172,7 @@
                         <div class="score">
                             <h2 pTooltip="Performance compared to average video performance in selected time period"
                                 tooltipPosition="top" showDelay="500" hideDelay="300">
-                                {{ bestVideoData.percentScore | number:'1.0-1' }}%
+                                {{ bestVideoData.percentScore | number:'1.0-2' }}%
                             </h2>
                         </div>
                     </div>
@@ -181,16 +181,22 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="card glass">
-                <div class="card-body">
-                    <h5 class="card-title">Engagement Insights</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                <div class="engagement">
+                    <h5>Engagement Insights</h5>
+                    <div class="row charts flex-center flex-row">
+                        <div class="col-6 pieChart">
+                            <p-chart type="pie" [data]="pieData"  class="w-full md:w-[30rem]" />
+                        </div>
+                        <div class="col-6 lineGraph">
+                            <p-chart type="line" [data]="graphData" [options]="options" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="card glass">
                 <div class="card-body">
                     <h5 class="card-title">Subscriber Growth Trend</h5>

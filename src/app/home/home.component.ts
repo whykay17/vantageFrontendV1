@@ -10,10 +10,12 @@ import { SelectModule } from 'primeng/select'
 import { DropdownModule } from 'primeng/dropdown'
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChartModule } from 'primeng/chart'
+
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [ NgClass, DecimalPipe, DatePipe,SelectModule,DropdownModule,FormsModule,ButtonModule,TooltipModule],
+    imports: [ NgClass, DecimalPipe, DatePipe,SelectModule,DropdownModule,FormsModule,ButtonModule,TooltipModule,ChartModule],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
@@ -23,6 +25,67 @@ export class HomeComponent {
   periodData:any;
   latestVideoData:any;
   bestVideoData:any;
+  pieData = {
+    labels: ['A', 'B', 'C'],
+    datasets: [
+        {
+            data: [540, 325, 702],
+            backgroundColor: ['#FF0000','#00FF00','#0000FF']
+        }
+    ]
+};
+
+graphData = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  datasets: [
+      {
+          label: 'First Dataset',
+          data: [23,13,15,14,19,20,12],
+          fill: false,
+          borderColor: '#00FF00',
+          tension: 0.4
+      },
+      {
+          label: 'Second Dataset',
+          data: [10,19,17,17,12,15,17],
+          fill: false,
+          borderColor: '#FF0000',
+          tension: 0.4
+      }
+  ]
+};
+
+options = {
+  maintainAspectRatio: false,
+  aspectRatio: 1,
+  plugins: {
+      legend: {
+          labels: {
+              color: '#FFFFFF'
+          }
+      }
+  },
+  scales: {
+      x: {
+          ticks: {
+              color: '#FFFFFF'
+          },
+          grid: {
+              color: '#FFFFFF',
+              drawBorder: false
+          }
+      },
+      y: {
+          ticks: {
+              color: '#FFFFFF'
+          },
+          grid: {
+              color: '#FFFFFF',
+              drawBorder: false
+          }
+      }
+  }
+};
 
   periodRange=28;
   bestRange=90;
