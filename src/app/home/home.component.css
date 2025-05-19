@@ -1,6 +1,7 @@
-.container{
+.baseContainer{
     padding:2.5% 2.5%;
     font-family: var(--font1);
+    margin: auto;
 }
 
 .card{
@@ -316,6 +317,12 @@
         font-size: 1.75rem;
         font-weight: 500;
       }
+    }
+    .charts{
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding:0 max(5%,1rem);
     }
   }
   
