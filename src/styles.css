@@ -31,13 +31,12 @@
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.147);
 }
 
-.pt1{
-    padding-top: 1rem;
-}
+.pt1{ padding-top: 1rem; }
+.pb1{ padding-bottom: 1rem; }
 
-.p1{
-    padding: 1rem;
-}
+.p1{ padding: 1rem; }
+
+.mb1{ margin-bottom: 1rem; }
 
 @media (max-width: 900px) {
     html {

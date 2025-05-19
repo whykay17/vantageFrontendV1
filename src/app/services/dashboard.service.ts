@@ -33,4 +33,7 @@ export class DashboardService {
         return this.http.get<any>(this.best+'period='+range);
     }
 
+    getEngagementStats(range:number){
+        return this.http.get<any>(this.backendURL+'engagement?period='+range);
+    }
 }

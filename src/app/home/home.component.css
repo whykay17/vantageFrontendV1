@@ -304,15 +304,17 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    gap: 1rem;
 
-    .charts{
-      .pieChart{
-        padding: 0.5rem;
-        width:min(200px,100%)
-      }
-      .lineGraph{
-        padding: 0.5rem;
-        
+    .engagementHeader{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+
+      h5{
+        font-size: 1.75rem;
+        font-weight: 500;
       }
     }
   }

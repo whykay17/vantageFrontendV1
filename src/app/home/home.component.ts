@@ -25,76 +25,67 @@ export class HomeComponent {
   periodData:any;
   latestVideoData:any;
   bestVideoData:any;
-  pieData = {
-    labels: ['A', 'B', 'C'],
-    datasets: [
-        {
-            data: [540, 325, 702],
-            backgroundColor: ['#FF0000','#00FF00','#0000FF']
-        }
-    ]
-};
+  engagementData:any;
 
-graphData = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-      {
-          label: 'First Dataset',
-          data: [23,13,15,14,19,20,12],
-          fill: false,
-          borderColor: '#00FF00',
-          tension: 0.4
-      },
-      {
-          label: 'Second Dataset',
-          data: [10,19,17,17,12,15,17],
-          fill: false,
-          borderColor: '#FF0000',
-          tension: 0.4
-      }
-  ]
-};
-
-options = {
-  maintainAspectRatio: false,
-  aspectRatio: 1,
-  plugins: {
+  pieData : any;
+  graphData : any;
+  
+  pieOptions = {
+    maintainAspectRatio: false,
+    aspectRatio: 1,
+    scales: {
+      x: {display:false},
+      y: {display:false}  
+    },
+    plugins: {
       legend: {
-          labels: {
-              color: '#FFFFFF'
-          }
+        labels: {
+          color: '#ffffff',
+          usePointStyle: true
+        }
       }
-  },
-  scales: {
+    }
+}
+
+  lineOptions = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: '#ffffff',
+          usePointStyle: true
+        }
+      },
+      tooltip: {
+        backgroundColor: '#2a2a40',
+        titleColor: '#ffffff',
+        bodyColor: '#e0e0e0',
+        borderColor: '#444',
+        borderWidth: 1
+      }
+    },
+    scales: {
       x: {
-          ticks: {
-              color: '#FFFFFF'
-          },
-          grid: {
-              color: '#FFFFFF',
-              drawBorder: false
-          }
+        ticks: {color: '#cccccc'},
+        grid: {color: '#333333'}
       },
       y: {
-          ticks: {
-              color: '#FFFFFF'
-          },
-          grid: {
-              color: '#FFFFFF',
-              drawBorder: false
-          }
+        ticks: {color: '#cccccc'},
+        grid: {color: '#333333'}
       }
-  }
-};
+    }
+  };
 
-  periodRange=28;
+  periodRange=30;
   bestRange=90;
+  engagementRange=90;
+
   rangeData = [
     { name: "7 days", value: 7 },
-    { name: "1 Month", value: 28 },
+    { name: "1 Month", value: 30 },
     { name: "3 Months", value: 90 },
     { name: "1 Year", value: 365 },
-    { name:"All time",value:5000}
+    { name:"All time",value:3000}
   ];
 
   constructor(private spinner:NgxSpinnerService,private authService:AuthService ,private dashboardService: DashboardService) { }
@@ -104,16 +95,20 @@ options = {
     var storedPeriod = this.authService.getStorage('periodData');
     var storedLatestVideo = this.authService.getStorage('latestVideoData');
     var storedBestVideo = this.authService.getStorage('bestVideoData');
-    if (storedOverview) {
+    var storedEngagement = this.authService.getStorage('engagementData');
+    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement) {
       this.dashboardData = storedOverview;
       this.periodData = storedPeriod;
       this.latestVideoData = storedLatestVideo;
       this.bestVideoData = storedBestVideo;
+      this.setEngagementCharts(storedEngagement);
     } else {
+      console.log(storedOverview,storedPeriod,storedLatestVideo,storedBestVideo,storedEngagement);
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
       this.getLatestVideoAPI();
       this.getBestVideoAPI(this.bestRange);
+      this.getEngagementAPI(this.engagementRange);
      }
   }
 
@@ -172,6 +167,73 @@ options = {
         this.spinner.hide();
       }
     })
+  }
+
+  getEngagementAPI(range:number){
+    this.spinner.show();
+    this.dashboardService.getEngagementStats(range).subscribe({
+      next:(data) => {
+        this.periodData=data;
+        this.setEngagementCharts(data);
+        sessionStorage.setItem('engagementData', JSON.stringify(data));
+        this.spinner.hide();
+      },
+      error:() => {
+        this.spinner.hide();
+      }
+    })
+  }
+
+  setEngagementCharts(data:any){
+    this.pieData = {
+      labels: ['Likes', 'Comments', 'Shares'],
+      datasets: [
+        {
+          data: [
+            data.likes || 0,
+            data.comments || 0,
+            data.shares || 0
+          ],
+          backgroundColor: ['#3b82f6', '#10b981', '#f59e0b'],
+          borderWidth: 0
+        }
+      ]
+    };
+    this.graphData = {
+      labels: data?.line_data.labels || [],
+      datasets: [
+        {
+          label: 'Likes',
+          data: data?.line_data.likes || [],
+          fill: false,
+          borderColor: '#3b82f6',
+          backgroundColor: '#3b82f6',
+          tension: 0.5,
+          pointRadius: 1,
+          pointHoverRadius: 5
+        },
+        {
+          label: 'Comments',
+          data: data?.line_data.comments || [],
+          fill: false,
+          borderColor: '#10b981',
+          backgroundColor: '#10b981',
+          tension: 0.5,
+          pointRadius: 2,
+          pointHoverRadius: 5
+        },
+        {
+          label: 'Shares',
+          data: data?.line_data.shares || [],
+          fill: false,
+          borderColor: '#f59e0b',
+          backgroundColor: '#f59e0b',
+          tension: 0.5,
+          pointRadius: 2,
+          pointHoverRadius: 5
+        }
+      ]
+    };
   }
 
   getChange(current: number, previous: number): number {
