@@ -66,12 +66,12 @@ export class HomeComponent {
     },
     scales: {
       x: {
-        ticks: {color: '#cccccc'},
-        grid: {color: '#333333'}
+        ticks: {color: '#cccccc',font: {size: 8}},
+        grid: {color: '#333333'},
       },
       y: {
         ticks: {color: '#cccccc'},
-        grid: {color: '#333333'}
+        grid: {color: '#333333'},
       }
     }
   };
@@ -103,7 +103,6 @@ export class HomeComponent {
       this.bestVideoData = storedBestVideo;
       this.setEngagementCharts(storedEngagement);
     } else {
-      console.log(storedOverview,storedPeriod,storedLatestVideo,storedBestVideo,storedEngagement);
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
       this.getLatestVideoAPI();
@@ -173,7 +172,7 @@ export class HomeComponent {
     this.spinner.show();
     this.dashboardService.getEngagementStats(range).subscribe({
       next:(data) => {
-        this.periodData=data;
+        this.engagementData=data;
         this.setEngagementCharts(data);
         sessionStorage.setItem('engagementData', JSON.stringify(data));
         this.spinner.hide();

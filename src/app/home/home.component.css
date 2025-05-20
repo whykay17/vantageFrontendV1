@@ -129,7 +129,7 @@
 
 .latestVideo {
     height:auto;
-    padding: 1rem;
+    margin: 1rem;
 
     h5{
       font-size: 2rem;
@@ -143,6 +143,7 @@
       flex-wrap: wrap;
       align-items: center;
       margin-bottom: 1rem;
+      margin-left: 1rem;
 
       .thumbnailContainer{
         width: 30%;
@@ -198,14 +199,12 @@
     }
   
     .video-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(max(160px, 30%), 1fr));
-      gap: 1rem;
+      padding: 1rem;
       width: 100%;
   
       .stat-item {
         background: rgba(255, 255, 255, 0.05);
-        padding: 1rem;
+        padding: 1rem;       
         border-radius: 12px;
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.08);

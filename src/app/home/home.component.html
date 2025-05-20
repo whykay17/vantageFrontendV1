@@ -115,32 +115,45 @@
                         <p class="video-date">Published on {{ latestVideoData?.publishedAt | date: 'mediumDate' }}</p>
                       </div>
                     </div>
-                  
                     <div class="video-stats">
-                      <div class="stat-item">
-                        <span class="stat-label">Views</span>
-                        <span class="stat-value">{{ latestVideoData?.views | number }}</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-label">Watch Time (mins)</span>
-                        <span class="stat-value">{{ latestVideoData?.estimatedMinutesWatched | number: '1.0-0' }}</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-label">Avg. View Duration</span>
-                        <span class="stat-value">{{ latestVideoData?.averageViewDuration}}</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-label">Avg. View %</span>
-                        <span class="stat-value">{{ latestVideoData?.averageViewPercentage | number:'1.0-1' }}%</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-label">Subscribers Gained</span>
-                        <span class="stat-value">{{ latestVideoData?.subscribersGained | number }}</span>
-                      </div>
-                      <div class="stat-item">
-                        <span class="stat-label">Shares</span>
-                        <span class="stat-value">{{ latestVideoData?.shares | number }}</span>
-                      </div>
+                        <div class="row g-3">
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Views</span>
+                                    <span class="stat-value">{{ latestVideoData?.views | number }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Watch Time (mins)</span>
+                                    <span class="stat-value">{{ latestVideoData?.estimatedMinutesWatched | number: '1.0-0' }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Avg. View Duration</span>
+                                    <span class="stat-value">{{ latestVideoData?.averageViewDuration}}</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Avg. View %</span>
+                                    <span class="stat-value">{{ latestVideoData?.averageViewPercentage | number:'1.0-1' }}%</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Subscribers Gained</span>
+                                    <span class="stat-value">{{ latestVideoData?.subscribersGained | number }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Shares</span>
+                                    <span class="stat-value">{{ latestVideoData?.shares | number }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>       
@@ -197,7 +210,7 @@
                                 ></p-dropdown>
                     </div>
                     <div class="row charts flex-center flex-row">
-                        <div class="col-8 col-md-4 pieChart p1">
+                        <div class="col-6 col-md-4 pieChart p1">
                             <p-chart type="pie" [data]="pieData" [options]="pieOptions"/>
                         </div>
                         <div class="col-12 col-md-8 lineGraph p1">
