@@ -223,9 +223,23 @@
         <div class="col-lg-6">
             <div class="card glass">
                 <div class="card-body">
-                    <h5 class="card-title">Subscriber Growth Trend</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <div class="subscriber">
+                        <div class="subscriberHeader mb-2">
+                            <h5>Subscriber Trend</h5>
+                            <p-dropdown
+                                    [options]="rangeData"
+                                    [(ngModel)]="subscriberRange"
+                                    optionLabel="name"
+                                    optionValue="value"
+                                    placeholder="Select Range"
+                                    styleClass="w-full md:w-14rem"
+                                    (onChange)="getSubscriberAPI(subscriberRange)"
+                                    ></p-dropdown>
+                        </div>
+                        <div class="col-11 subscriberChart">
+                            <p-chart type="bar" [data]="stackedData" [options]="stackedOptions" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

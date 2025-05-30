@@ -10,7 +10,8 @@ import { SelectModule } from 'primeng/select'
 import { DropdownModule } from 'primeng/dropdown'
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { ChartModule } from 'primeng/chart'
+import { ChartModule } from 'primeng/chart';
+import { pieOptions,lineOptions,stackedOptions} from './chartConfig'
 
 @Component({
     selector: 'app-home',
@@ -19,6 +20,7 @@ import { ChartModule } from 'primeng/chart'
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
+
 export class HomeComponent {
 
   dashboardData: any;
@@ -26,62 +28,22 @@ export class HomeComponent {
   latestVideoData:any;
   bestVideoData:any;
   engagementData:any;
+  stackedData:any;
+
+  pieOptions=pieOptions
+  lineOptions=lineOptions
+  stackedOptions=stackedOptions
 
   pieData : any;
   graphData : any;
   
-  pieOptions = {
-    maintainAspectRatio: false,
-    aspectRatio: 1,
-    scales: {
-      x: {display:false},
-      y: {display:false}  
-    },
-    plugins: {
-      legend: {
-        labels: {
-          color: '#ffffff',
-          usePointStyle: true
-        }
-      }
-    }
-}
-
-  lineOptions = {
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels: {
-          color: '#ffffff',
-          usePointStyle: true
-        }
-      },
-      tooltip: {
-        backgroundColor: '#2a2a40',
-        titleColor: '#ffffff',
-        bodyColor: '#e0e0e0',
-        borderColor: '#444',
-        borderWidth: 1
-      }
-    },
-    scales: {
-      x: {
-        ticks: {color: '#cccccc',font: {size: 8}},
-        grid: {color: '#333333'},
-      },
-      y: {
-        ticks: {color: '#cccccc'},
-        grid: {color: '#333333'},
-      }
-    }
-  };
-
   periodRange=30;
   bestRange=90;
   engagementRange=90;
+  subscriberRange=90;
 
   rangeData = [
-    { name: "7 days", value: 7 },
+    { name: "7 days", value: 9 },
     { name: "1 Month", value: 30 },
     { name: "3 Months", value: 90 },
     { name: "1 Year", value: 365 },
@@ -96,18 +58,21 @@ export class HomeComponent {
     var storedLatestVideo = this.authService.getStorage('latestVideoData');
     var storedBestVideo = this.authService.getStorage('bestVideoData');
     var storedEngagement = this.authService.getStorage('engagementData');
-    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement) {
+    var storedSubscriber = this.authService.getStorage('subscriberData');
+    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement && storedSubscriber) {
       this.dashboardData = storedOverview;
       this.periodData = storedPeriod;
       this.latestVideoData = storedLatestVideo;
       this.bestVideoData = storedBestVideo;
       this.setEngagementCharts(storedEngagement);
+      this.setSubscriberCharts(storedSubscriber);
     } else {
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
       this.getLatestVideoAPI();
       this.getBestVideoAPI(this.bestRange);
       this.getEngagementAPI(this.engagementRange);
+      this.getSubscriberAPI(this.subscriberRange);
      }
   }
 
@@ -117,11 +82,11 @@ export class HomeComponent {
       this.dashboardData = data;
       sessionStorage.setItem('overviewData', JSON.stringify(data));
       this.spinner.hide();
-    },
-    error:()=>{
-      this.spinner.hide();
-    }
-  })
+      },
+      error:()=>{
+        this.spinner.hide();
+      }
+    })
   }
 
   getPeriodAPI(range:number){
@@ -183,6 +148,21 @@ export class HomeComponent {
     })
   }
 
+  getSubscriberAPI(range:number){
+    this.spinner.show();
+    this.dashboardService.getSubscriberStats(range).subscribe({
+      next:(data) => {
+        this.setSubscriberCharts(data);
+        sessionStorage.setItem('subscriberData', JSON.stringify(data));
+        this.spinner.hide();
+        console.log(data);
+      },
+      error:() => {
+        this.spinner.hide();
+      }
+    })
+  }
+
   setEngagementCharts(data:any){
     this.pieData = {
       labels: ['Likes', 'Comments', 'Shares'],
@@ -230,6 +210,26 @@ export class HomeComponent {
           tension: 0.5,
           pointRadius: 2,
           pointHoverRadius: 5
+        }
+      ]
+    };
+  }
+
+  setSubscriberCharts(data:any) {
+    this.stackedData = {
+      labels: data?.labels,
+      datasets: [
+        {
+          label: 'Subscribers Gained',
+          data: data?.subscribersGained,
+          backgroundColor: '#4CAF50', // green
+          stack: 'subscribers'
+        },
+        {
+          label: 'Subscribers Lost',
+          data: data?.subscribersLost,
+          backgroundColor: '#F44336', // red
+          stack: 'subscribers'
         }
       ]
     };

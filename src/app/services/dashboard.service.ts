@@ -11,9 +11,11 @@ export class DashboardService {
 
     backendURL = 'http://localhost:5000/'
     private overview = this.backendURL+'channel-overview';
-    private period = this.backendURL+'period-stats?'
-    private latest = this.backendURL+'latest-video'
-    private best = this.backendURL+'best-video?'
+    private period = this.backendURL+'period-stats?';
+    private latest = this.backendURL+'latest-video';
+    private best = this.backendURL+'best-video?';
+    private engagement = this.backendURL+'engagement?';
+    private subscriber = this.backendURL+'subscriber?';
 
     constructor(private http:HttpClient){}
 
@@ -34,6 +36,10 @@ export class DashboardService {
     }
 
     getEngagementStats(range:number){
-        return this.http.get<any>(this.backendURL+'engagement?period='+range);
+        return this.http.get<any>(this.engagement+'period='+range);
+    }
+
+    getSubscriberStats(range:number){
+        return this.http.get<any>(this.subscriber+'period='+range);
     }
 }
