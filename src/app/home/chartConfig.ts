@@ -1,6 +1,6 @@
 export const pieOptions = {
     maintainAspectRatio: false,
-    aspectRatio: 1,
+    aspectRatio: 1.4,
     scales: {
       x: {display:false},
       y: {display:false}  
@@ -83,3 +83,46 @@ export const lineOptions = {
       }
     }
   };
+
+  export const doubleBarOptions = {
+    maintainAspectRatio: false,
+    aspectRatio: 1.3,
+    plugins: {
+      legend: {
+        labels: {
+          color: '#ffffff',
+          usePointStyle: true
+        }
+      },
+      tooltip: {
+        backgroundColor: '#2a2a40',
+        titleColor: '#ffffff',
+        bodyColor: '#e0e0e0',
+        borderColor: '#444',
+        borderWidth: 1
+      }
+    },
+    scales: {
+      x: {
+        stacked: false,
+        ticks: {
+          color: '#cccccc',
+        },
+        grid: {
+          color: '#333333'
+        }
+      },
+      y: {
+        type: 'logarithmic',
+        stacked: false,
+        ticks: {
+          color: '#cccccc'
+        },
+        grid: {
+          color: '#333333'
+        }
+      }
+    }
+  };
+  
+

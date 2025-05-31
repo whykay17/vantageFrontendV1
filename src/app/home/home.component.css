@@ -136,17 +136,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 1rem;
     }
   
     .video-header {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       margin-bottom: 1rem;
       margin-left: 1rem;
 
       .thumbnailContainer{
-        width: 30%;
         height: auto;
         margin: 0 1.5rem 0.5rem 0;
       }
@@ -345,9 +344,31 @@
       }
     }
 
-    
-
     subscriberChart{
+      width: 100%;
+      padding: 0 1rem;
+    }
+  }
+
+  .traffic{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:100%;
+
+    .trafficHeader{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+
+      h5{
+        font-size: 1.75rem;
+        font-weight: 500;
+      }
+    }
+
+    trafficChart{
       width: 100%;
       padding: 0 1rem;
     }

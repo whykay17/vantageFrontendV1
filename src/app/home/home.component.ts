@@ -11,7 +11,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChartModule } from 'primeng/chart';
-import { pieOptions,lineOptions,stackedOptions} from './chartConfig'
+import { pieOptions,lineOptions,stackedOptions,doubleBarOptions} from './chartConfig'
 
 @Component({
     selector: 'app-home',
@@ -28,19 +28,23 @@ export class HomeComponent {
   latestVideoData:any;
   bestVideoData:any;
   engagementData:any;
-  stackedData:any;
+  
 
   pieOptions=pieOptions
   lineOptions=lineOptions
   stackedOptions=stackedOptions
+  doubleBarOptions=doubleBarOptions
 
   pieData : any;
   graphData : any;
+  stackedData:any;
+  doubleBarData:any;
   
   periodRange=30;
   bestRange=90;
   engagementRange=90;
   subscriberRange=90;
+  trafficRange=90;
 
   rangeData = [
     { name: "7 days", value: 9 },
@@ -59,13 +63,16 @@ export class HomeComponent {
     var storedBestVideo = this.authService.getStorage('bestVideoData');
     var storedEngagement = this.authService.getStorage('engagementData');
     var storedSubscriber = this.authService.getStorage('subscriberData');
-    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement && storedSubscriber) {
+    var storedTrafficSources = this.authService.getStorage('trafficSourcesData');
+
+    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement && storedSubscriber && storedTrafficSources) {
       this.dashboardData = storedOverview;
       this.periodData = storedPeriod;
       this.latestVideoData = storedLatestVideo;
       this.bestVideoData = storedBestVideo;
       this.setEngagementCharts(storedEngagement);
       this.setSubscriberCharts(storedSubscriber);
+      this.setTrafficSourcesCharts(storedTrafficSources);
     } else {
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
@@ -73,6 +80,7 @@ export class HomeComponent {
       this.getBestVideoAPI(this.bestRange);
       this.getEngagementAPI(this.engagementRange);
       this.getSubscriberAPI(this.subscriberRange);
+      this.getTrafficSourcesAPI(this.trafficRange);
      }
   }
 
@@ -154,8 +162,23 @@ export class HomeComponent {
       next:(data) => {
         this.setSubscriberCharts(data);
         sessionStorage.setItem('subscriberData', JSON.stringify(data));
+        this.subscriberRange=range;
         this.spinner.hide();
-        console.log(data);
+      },
+      error:() => {
+        this.spinner.hide();
+      }
+    })
+  }
+
+  getTrafficSourcesAPI(range:number){
+    this.spinner.show();
+    this.dashboardService.getTrafficSources(range).subscribe({
+      next:(data) => {
+        this.setTrafficSourcesCharts(data);
+        sessionStorage.setItem('trafficSourcesData', JSON.stringify(data));
+        this.trafficRange=range;
+        this.spinner.hide();
       },
       error:() => {
         this.spinner.hide();
@@ -230,6 +253,28 @@ export class HomeComponent {
           data: data?.subscribersLost,
           backgroundColor: '#F44336', // red
           stack: 'subscribers'
+        }
+      ]
+    };
+  }
+
+  setTrafficSourcesCharts(data:any) {
+    this.doubleBarData = {
+      labels: data?.labels || [],
+      datasets: [
+        {
+          label: 'Views',
+          data: data?.views || [],
+          backgroundColor: '#3b82f6', // blue
+          borderColor: '#3b82f6',
+          borderWidth: 1
+        },
+        {
+          label: 'Watch Time',
+          data: data?.watchTime || [],
+          backgroundColor: '#10b981', // green
+          borderColor: '#10b981',
+          borderWidth: 1
         }
       ]
     };

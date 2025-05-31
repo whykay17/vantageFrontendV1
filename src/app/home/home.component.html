@@ -105,12 +105,12 @@
             <div class="card glass">
                 <div class="latestVideo">
                     <h5>Latest Video</h5>
-                    <div class="video-header">
-                        <div class="thumbnailContainer flex-center">
+                    <div class="video-header row">
+                        <div class="thumbnailContainer flex-center col-md-3 col-8">
                             <img [src]="latestVideoData?.thumbnail" alt="Video Thumbnail" class="latestThumbnail" (click)="openVideo(latestVideoData.url)" />
                             <img src="assets/youtubeLogo.png" class="youtubeLogo">
                         </div> 
-                      <div class="video-info">
+                      <div class="video-info col-md-9 col-12">
                         <h3 class="video-title">{{ latestVideoData?.title }}</h3>
                         <p class="video-date">Published on {{ latestVideoData?.publishedAt | date: 'mediumDate' }}</p>
                       </div>
@@ -194,7 +194,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <div class="card glass">
                 <div class="engagement mb1">
                     <div class="engagementHeader">
@@ -220,7 +220,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="card glass">
                 <div class="card-body">
                     <div class="subscriber">
@@ -245,19 +245,33 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-5">
             <div class="card glass">
                 <div class="card-body">
-                    <h5 class="card-title">Audience Insights</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <div class="traffic">
+                        <div class="trafficHeader mb-2">
+                            <h5>Traffic Sources</h5>
+                            <p-dropdown
+                                    [options]="rangeData"
+                                    [(ngModel)]="trafficRange"
+                                    optionLabel="name"
+                                    optionValue="value"
+                                    placeholder="Select Range"
+                                    styleClass="w-full md:w-14rem"
+                                    (onChange)="getTrafficSourcesAPI(subscriberRange)"
+                                    ></p-dropdown>
+                        </div>
+                        <div class="col-11 trafficChart">
+                            <p-chart type="bar" [data]="doubleBarData" [options]="doubleBarOptions" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-7">
             <div class="card glass">
                 <div class="card-body">
-                    <h5 class="card-title">Traffic Sources</h5>
+                    <h5 class="card-title">Audience Insights</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                         card's content.</p>
                 </div>
