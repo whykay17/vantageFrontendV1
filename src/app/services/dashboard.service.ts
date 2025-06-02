@@ -17,6 +17,7 @@ export class DashboardService {
     private engagement = this.backendURL+'engagement?';
     private subscriber = this.backendURL+'subscriber?';
     private trafficSources = this.backendURL+'traffic?';
+    private retention = this.backendURL+'retention?';
 
     constructor(private http:HttpClient){}
 
@@ -46,5 +47,9 @@ export class DashboardService {
 
     getTrafficSources(range:number){
         return this.http.get<any>(this.trafficSources+'period='+range);
+    }
+
+    getRetentionStats(range:number){
+        return this.http.get<any>(this.retention+'period='+range);
     }
 }

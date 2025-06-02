@@ -365,6 +365,7 @@
       h5{
         font-size: 1.75rem;
         font-weight: 500;
+        margin-bottom: 1rem;
       }
     }
 
@@ -373,7 +374,67 @@
       padding: 0 1rem;
     }
   }
-  
+
+.retention{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:100%;
+
+    .retentionHeader{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding-top: 1rem;
+
+      h5{
+        font-size: 1.75rem;
+        font-weight: 500;
+      }
+    }
+
+    .retentionData{
+      width: 100%;
+      padding: 0 1rem;
+
+      .tileContent{
+        width: 100%;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);    
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 1rem;
+
+        .retentionTile{
+          display: flex;
+          align-items: center;
+          padding: 1rem;
+          font-size: 1rem;
+          border-radius: 12px;
+          text-align: center;
+
+          .retentionValue{
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+          }
+          .retentionText{
+            font-size: 0.65rem;
+            color: #bbb;
+            display: block;
+            margin-bottom: 0.3rem;
+          }
+        }
+      }
+    }
+
+    .retentionChart{
+      margin-bottom: 1rem;
+    }
+}
   
   
   

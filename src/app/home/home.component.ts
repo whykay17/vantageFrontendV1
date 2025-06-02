@@ -4,19 +4,20 @@ import { AuthService } from '../services/auth.service';
 import { DashboardService } from '../services/dashboard.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { error } from 'console';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe} from '@angular/common';
 import { NgClass } from '@angular/common';
 import { SelectModule } from 'primeng/select'
 import { DropdownModule } from 'primeng/dropdown'
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChartModule } from 'primeng/chart';
-import { pieOptions,lineOptions,stackedOptions,doubleBarOptions} from './chartConfig'
+import { pieOptions,lineOptions,stackedOptions,doubleBarOptions,retentionLineOptions} from './chartConfig'
 
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [ NgClass, DecimalPipe, DatePipe,SelectModule,DropdownModule,FormsModule,ButtonModule,TooltipModule,ChartModule],
+    imports: [ NgClass, DecimalPipe, DatePipe,SelectModule,DropdownModule,FormsModule,
+      ButtonModule,TooltipModule,ChartModule],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
@@ -28,23 +29,26 @@ export class HomeComponent {
   latestVideoData:any;
   bestVideoData:any;
   engagementData:any;
-  
+  retentionData:any;
 
   pieOptions=pieOptions
   lineOptions=lineOptions
   stackedOptions=stackedOptions
   doubleBarOptions=doubleBarOptions
+  retentionLineOptions=retentionLineOptions
 
   pieData : any;
   graphData : any;
   stackedData:any;
   doubleBarData:any;
+  retentionLineData:any;
   
   periodRange=30;
   bestRange=90;
   engagementRange=90;
   subscriberRange=90;
   trafficRange=90;
+  retentionRange=90;
 
   rangeData = [
     { name: "7 days", value: 9 },
@@ -64,8 +68,9 @@ export class HomeComponent {
     var storedEngagement = this.authService.getStorage('engagementData');
     var storedSubscriber = this.authService.getStorage('subscriberData');
     var storedTrafficSources = this.authService.getStorage('trafficSourcesData');
+    var storedRetention = this.authService.getStorage('retentionData');
 
-    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement && storedSubscriber && storedTrafficSources) {
+    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement && storedSubscriber && storedTrafficSources && storedRetention) {
       this.dashboardData = storedOverview;
       this.periodData = storedPeriod;
       this.latestVideoData = storedLatestVideo;
@@ -73,6 +78,7 @@ export class HomeComponent {
       this.setEngagementCharts(storedEngagement);
       this.setSubscriberCharts(storedSubscriber);
       this.setTrafficSourcesCharts(storedTrafficSources);
+      this.setRetentionCharts(storedRetention);
     } else {
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
@@ -81,6 +87,7 @@ export class HomeComponent {
       this.getEngagementAPI(this.engagementRange);
       this.getSubscriberAPI(this.subscriberRange);
       this.getTrafficSourcesAPI(this.trafficRange);
+      this.getRetentionAPI(this.retentionRange);
      }
   }
 
@@ -186,6 +193,21 @@ export class HomeComponent {
     })
   }
 
+  getRetentionAPI(range:number){
+    this.spinner.show();
+    this.dashboardService.getRetentionStats(range).subscribe({
+      next:(data) => {
+        this.retentionLineData = data?.line_data || {};
+        this.setRetentionCharts(this.retentionData);
+        sessionStorage.setItem('retentionData', JSON.stringify(data));
+        this.spinner.hide();
+      },
+      error:() => {
+        this.spinner.hide();
+      }
+    })
+  }
+
   setEngagementCharts(data:any){
     this.pieData = {
       labels: ['Likes', 'Comments', 'Shares'],
@@ -275,6 +297,25 @@ export class HomeComponent {
           backgroundColor: '#10b981', // green
           borderColor: '#10b981',
           borderWidth: 1
+        }
+      ]
+    };
+  }
+
+  setRetentionCharts(data:any) {
+    this.retentionData=data;
+    this.retentionLineData = {
+      labels: data?.line_data.labels || [],
+      datasets: [
+        {
+          label: 'Retention Percentage',
+          data: data?.line_data.retentionPercentage || [],
+          fill: false,
+          borderColor: '#3b82f6',
+          backgroundColor: '#3b82f6',
+          tension: 0.3,
+          pointRadius: 1,
+          pointHoverRadius: 5
         }
       ]
     };

@@ -86,7 +86,7 @@ export const lineOptions = {
 
   export const doubleBarOptions = {
     maintainAspectRatio: false,
-    aspectRatio: 1.3,
+    aspectRatio: 1.25,
     plugins: {
       legend: {
         labels: {
@@ -124,5 +124,35 @@ export const lineOptions = {
       }
     }
   };
+
+  export const retentionLineOptions = {
+    maintainAspectRatio: false,
+    aspectRatio: 1.1,
+    plugins: {
+      legend: {
+        labels: {
+          color: '#ffffff',
+          usePointStyle: true
+        }
+      },
+      tooltip: {
+        backgroundColor: '#2a2a40',
+        titleColor: '#ffffff',
+        bodyColor: '#e0e0e0',
+        borderColor: '#444',
+        borderWidth: 1
+      }
+    },
+    scales: {
+      x: {
+        ticks: {color: '#cccccc',font: {size: 8}},
+        grid: {color: '#333333'},
+      },
+      y: {
+        ticks: {color: '#cccccc'},
+        grid: {color: '#333333'},
+      }
+    }
+  }
   
 
