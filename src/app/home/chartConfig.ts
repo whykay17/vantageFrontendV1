@@ -155,4 +155,67 @@ export const lineOptions = {
     }
   }
   
+  export const genderAgeBarOptions = {
+    maintainAspectRatio: false,
+    aspectRatio: 1.25,
+    plugins: {
+      legend: {
+        labels: {
+          color: '#ffffff',
+          usePointStyle: true
+        }
+      },
+      tooltip: {
+        backgroundColor: '#2a2a40',
+        titleColor: '#ffffff',
+        bodyColor: '#e0e0e0',
+        borderColor: '#444',
+        borderWidth: 1
+      }
+    },
+    scales: {
+      x: {
+        stacked: false,
+        ticks: {
+          color: '#cccccc',
+          font: { size: 10 }
+        },
+        grid: {
+          color: '#333333'
+        }
+      },
+      y: {
+        stacked: false,
+        ticks: {
+          color: '#cccccc'
+        },
+        grid: {
+          color: '#333333'
+        },
+        beginAtZero: true
+      }
+    }
+  };
+
+  
+  export const devicePieOptions = {
+    maintainAspectRatio: false,
+    aspectRatio: 1.2,
+    scales: {
+        x: {display:false},
+        y: {display:false}  
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: '#ffffff',
+          usePointStyle: true,
+          padding: 16
+        }
+      },
+    }
+  };
+
+  
 

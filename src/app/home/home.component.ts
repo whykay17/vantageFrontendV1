@@ -11,7 +11,11 @@ import { DropdownModule } from 'primeng/dropdown'
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChartModule } from 'primeng/chart';
-import { pieOptions,lineOptions,stackedOptions,doubleBarOptions,retentionLineOptions} from './chartConfig'
+import { Chart } from 'chart.js';
+import { TreemapController,TreemapElement } from 'chartjs-chart-treemap';
+import { pieOptions,lineOptions,stackedOptions,doubleBarOptions,retentionLineOptions,genderAgeBarOptions,devicePieOptions} from './chartConfig'
+
+Chart.register(TreemapController, TreemapElement);
 
 @Component({
     selector: 'app-home',
@@ -30,31 +34,39 @@ export class HomeComponent {
   bestVideoData:any;
   engagementData:any;
   retentionData:any;
+  demographicsData:any;
 
   pieOptions=pieOptions
   lineOptions=lineOptions
   stackedOptions=stackedOptions
   doubleBarOptions=doubleBarOptions
   retentionLineOptions=retentionLineOptions
+  genderAgeBarOptions=genderAgeBarOptions
+  devicePieOptions=devicePieOptions
 
   pieData : any;
   graphData : any;
   stackedData:any;
   doubleBarData:any;
   retentionLineData:any;
+  genderAgeBarData:any;
+  countryChartData:any;
+  devicePieData:any;
   
-  periodRange=30;
-  bestRange=90;
-  engagementRange=90;
-  subscriberRange=90;
-  trafficRange=90;
-  retentionRange=90;
+  periodRange=3000;
+  bestRange=3000;
+  engagementRange=3000;
+  subscriberRange=3000;
+  trafficRange=3000;
+  retentionRange=3000;
+  demographicsRange=3000;
 
   rangeData = [
     { name: "7 days", value: 9 },
     { name: "1 Month", value: 30 },
     { name: "3 Months", value: 90 },
     { name: "1 Year", value: 365 },
+    { name: "7 Years", value: 2555 },
     { name:"All time",value:3000}
   ];
 
@@ -69,8 +81,9 @@ export class HomeComponent {
     var storedSubscriber = this.authService.getStorage('subscriberData');
     var storedTrafficSources = this.authService.getStorage('trafficSourcesData');
     var storedRetention = this.authService.getStorage('retentionData');
+    var storedDemographics = this.authService.getStorage('demographicsData');
 
-    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement && storedSubscriber && storedTrafficSources && storedRetention) {
+    if (storedOverview && storedPeriod && storedLatestVideo && storedBestVideo && storedEngagement && storedSubscriber && storedTrafficSources && storedRetention && storedDemographics) {
       this.dashboardData = storedOverview;
       this.periodData = storedPeriod;
       this.latestVideoData = storedLatestVideo;
@@ -79,6 +92,10 @@ export class HomeComponent {
       this.setSubscriberCharts(storedSubscriber);
       this.setTrafficSourcesCharts(storedTrafficSources);
       this.setRetentionCharts(storedRetention);
+      this.setDemographicsCharts(storedDemographics);
+      setTimeout(() => {
+        this.setTreemapChart(storedDemographics?.country || []);
+      }, 400);
     } else {
       this.getDashboardAPI();
       this.getPeriodAPI(this.periodRange);
@@ -88,7 +105,9 @@ export class HomeComponent {
       this.getSubscriberAPI(this.subscriberRange);
       this.getTrafficSourcesAPI(this.trafficRange);
       this.getRetentionAPI(this.retentionRange);
+      this.getDemographicsAPI(this.demographicsRange);
      }
+     
   }
 
   getDashboardAPI() {
@@ -198,8 +217,24 @@ export class HomeComponent {
     this.dashboardService.getRetentionStats(range).subscribe({
       next:(data) => {
         this.retentionLineData = data?.line_data || {};
-        this.setRetentionCharts(this.retentionData);
+        this.setRetentionCharts(data);
         sessionStorage.setItem('retentionData', JSON.stringify(data));
+        this.spinner.hide();
+      },
+      error:() => {
+        this.spinner.hide();
+      }
+    })
+  }
+
+  getDemographicsAPI(range:number){
+    this.spinner.show();
+    this.dashboardService.getDemographics(range).subscribe({
+      next:(data) => {
+        this.demographicsData=data;
+        sessionStorage.setItem('demographicsData', JSON.stringify(data));
+        this.setDemographicsCharts(data);
+        this.setTreemapChart(data?.country|| []);
         this.spinner.hide();
       },
       error:() => {
@@ -320,6 +355,56 @@ export class HomeComponent {
       ]
     };
   }
+
+  setDemographicsCharts(chartsData:any) {
+
+    this.genderAgeBarData = chartsData.gender_age;
+
+    this.devicePieData = chartsData.device || [];
+
+  }
+
+  setTreemapChart(treemapData: any) {
+    const ctx = document.getElementById('treemapChart') as HTMLCanvasElement;
+  
+    if (this.countryChartData) {
+      this.countryChartData.destroy();
+    }
+  
+    this.countryChartData = new Chart(ctx, {
+      type: 'treemap',
+      data: {
+        datasets: [
+          {
+            type: 'treemap',
+            data: treemapData || [],
+            borderColor: 'blue',
+            borderWidth: 0.5,
+            spacing: 0,
+            backgroundColor: '#3b82f6',
+            key: 'Views',
+            groups: ['country'],
+            labels: {
+              display: true,
+              color: 'white',
+              font: {
+                size: 12,
+              },
+              overflow: 'hidden'
+            }
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+  }
+  
 
   getChange(current: number, previous: number): number {
     if (previous === 0) {
