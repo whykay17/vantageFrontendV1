@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ReportsComponent } from './reports/reports.component';
-import { ToolsComponent } from './tools/tools.component';
+import { VideosModule } from './videos/videos.module';
 import { RequestsComponent } from './requests/requests.component';
 import { HomeComponent } from './home/home.component';
 
@@ -14,8 +14,8 @@ export const routes: Routes = [
         component: ReportsComponent
     },
     {
-        path: 'tools',
-        component: ToolsComponent
+        path: 'videos',
+        loadChildren: () => import('./videos/videos.module').then(m => m.VideosModule)
     },
     {
         path: 'requests',
