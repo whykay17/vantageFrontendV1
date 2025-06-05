@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { DashboardService } from '../services/dashboard.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { error } from 'console';
 import { DatePipe, DecimalPipe} from '@angular/common';
 import { NgClass } from '@angular/common';
 import { SelectModule } from 'primeng/select'
@@ -52,14 +51,17 @@ export class HomeComponent {
   genderAgeBarData:any;
   countryChartData:any;
   devicePieData:any;
+
+  rangeDefaults = {
+    period: 3000,
+    best: 3000,
+    engagement: 3000,
+    subscriber: 3000,
+    traffic: 3000,
+    retention: 3000,
+    demographics: 3000,
+  };
   
-  periodRange=3000;
-  bestRange=3000;
-  engagementRange=3000;
-  subscriberRange=3000;
-  trafficRange=3000;
-  retentionRange=3000;
-  demographicsRange=3000;
 
   rangeData = [
     { name: "7 days", value: 9 },
@@ -95,17 +97,17 @@ export class HomeComponent {
       this.setDemographicsCharts(storedDemographics);
       setTimeout(() => {
         this.setTreemapChart(storedDemographics?.country || []);
-      }, 400);
+      }, 500);
     } else {
       this.getDashboardAPI();
-      this.getPeriodAPI(this.periodRange);
+      this.getPeriodAPI(this.rangeDefaults.period);
       this.getLatestVideoAPI();
-      this.getBestVideoAPI(this.bestRange);
-      this.getEngagementAPI(this.engagementRange);
-      this.getSubscriberAPI(this.subscriberRange);
-      this.getTrafficSourcesAPI(this.trafficRange);
-      this.getRetentionAPI(this.retentionRange);
-      this.getDemographicsAPI(this.demographicsRange);
+      this.getBestVideoAPI(this.rangeDefaults.best);
+      this.getEngagementAPI(this.rangeDefaults.engagement);
+      this.getSubscriberAPI(this.rangeDefaults.subscriber);
+      this.getTrafficSourcesAPI(this.rangeDefaults.traffic);
+      this.getRetentionAPI(this.rangeDefaults.retention);
+      this.getDemographicsAPI(this.rangeDefaults.demographics);
      }
      
   }
@@ -128,7 +130,7 @@ export class HomeComponent {
     this.dashboardService.getPeriodStats(range).subscribe({
       next: (data) => {
         this.periodData = data;
-        this.periodRange=range;
+        this.rangeDefaults.period=range;
         sessionStorage.setItem('periodData', JSON.stringify(data));
         this.spinner.hide();
       },
@@ -157,7 +159,7 @@ export class HomeComponent {
     this.dashboardService.getBestVideo(range).subscribe({
       next:(data) => {
         this.bestVideoData=data;
-        this.bestRange=range;
+        this.rangeDefaults.best=range;
         sessionStorage.setItem('bestVideoData',JSON.stringify(data));
         this.spinner.hide();
       },
@@ -172,6 +174,7 @@ export class HomeComponent {
     this.dashboardService.getEngagementStats(range).subscribe({
       next:(data) => {
         this.engagementData=data;
+        this.rangeDefaults.engagement=range;
         this.setEngagementCharts(data);
         sessionStorage.setItem('engagementData', JSON.stringify(data));
         this.spinner.hide();
@@ -188,7 +191,7 @@ export class HomeComponent {
       next:(data) => {
         this.setSubscriberCharts(data);
         sessionStorage.setItem('subscriberData', JSON.stringify(data));
-        this.subscriberRange=range;
+        this.rangeDefaults.subscriber=range;
         this.spinner.hide();
       },
       error:() => {
@@ -203,7 +206,7 @@ export class HomeComponent {
       next:(data) => {
         this.setTrafficSourcesCharts(data);
         sessionStorage.setItem('trafficSourcesData', JSON.stringify(data));
-        this.trafficRange=range;
+        this.rangeDefaults.traffic=range;
         this.spinner.hide();
       },
       error:() => {
@@ -217,6 +220,7 @@ export class HomeComponent {
     this.dashboardService.getRetentionStats(range).subscribe({
       next:(data) => {
         this.retentionLineData = data?.line_data || {};
+        this.rangeDefaults.retention=range;
         this.setRetentionCharts(data);
         sessionStorage.setItem('retentionData', JSON.stringify(data));
         this.spinner.hide();
@@ -232,6 +236,7 @@ export class HomeComponent {
     this.dashboardService.getDemographics(range).subscribe({
       next:(data) => {
         this.demographicsData=data;
+        this.rangeDefaults.demographics=range;
         sessionStorage.setItem('demographicsData', JSON.stringify(data));
         this.setDemographicsCharts(data);
         this.setTreemapChart(data?.country|| []);
@@ -423,5 +428,16 @@ export class HomeComponent {
   openVideo(url:string){
     window.open(url,'_blank');
   }
+
+  formatNumber(value: number): string {
+    if (value >= 1_000_000) {
+      return (value / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (value >= 1_000) {
+      return (value / 1_000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return value.toString();
+  }
+  
   
 }

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="overview card glass">
-                <img class="profile" src={{dashboardData?.profileUrl}} alt="Youtube Channel Display Picture">
+                <img class="profile" [src]="dashboardData?.profileUrl || 'assets/default.svg'" alt="Youtube Channel Display Picture">
                 <div class="flex-column pt1">
                     <h5 class="profileName flex-center">{{dashboardData?.channelName}}</h5>
                     <p class="subsCount">Subscribers: {{dashboardData?.subscriberCount}}</p>
@@ -19,9 +19,9 @@
                     <div class="periodHead">
                         <h5 class="cardTitle">Performance</h5>
                         <div>
-                            <p-dropdown [options]="rangeData" [(ngModel)]="periodRange" optionLabel="name"
-                                optionValue="value" placeholder="Select Range" styleClass="w-full md:w-14rem"
-                                (onChange)="getPeriodAPI(periodRange)"></p-dropdown>
+                            <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.period" optionLabel="name"
+                                optionValue="value" placeholder="Select Range" 
+                                (onChange)="getPeriodAPI(rangeDefaults.period)"></p-select>
                         </div>
                     </div>
 
@@ -34,7 +34,7 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Subscriber Gained</div>
-                            <div class="col-md-4 col-3">{{ periodData?.current?.subscribersGained }}</div>
+                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.subscribersGained) }}</div>
                             <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current?.subscribersGained, periodData?.previous?.subscribersGained))">
                                 {{ getChange(periodData?.current?.subscribersGained,
@@ -44,7 +44,7 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Views</div>
-                            <div class="col-md-4 col-3">{{ periodData?.current?.views }}</div>
+                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.views) }}</div>
                             <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current?.views, periodData?.previous?.views))">
                                 {{ getChange(periodData?.current?.views, periodData?.previous?.views) | number:'1.0-1'
@@ -54,7 +54,7 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Likes</div>
-                            <div class="col-md-4 col-3">{{ periodData?.current?.likes }}</div>
+                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.likes) }}</div>
                             <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current?.likes, periodData?.previous?.likes))">
                                 {{ getChange(periodData?.current?.likes, periodData?.previous?.likes) | number:'1.0-1'
@@ -64,7 +64,7 @@
 
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Comments</div>
-                            <div class="col-md-4 col-3">{{ periodData?.current?.comments }}</div>
+                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.comments) }}</div>
                             <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current?.comments, periodData?.previous?.comments))">
                                 {{ getChange(periodData?.current?.comments, periodData?.previous?.comments) |
@@ -87,7 +87,7 @@
                         <div class="row py-2 border-bottom">
                             <div class="col-6">Avg. Watch %</div>
                             <div class="col-md-4 col-3">{{ periodData?.current?.averageViewPercentage | number:'1.1-2'
-                                }}</div>
+                                }}%</div>
                             <div class="col-md-2 col-3"
                                 [ngClass]="getChangeClass(getChange(periodData?.current?.averageViewPercentage, periodData?.previous?.averageViewPercentage))">
                                 {{ getChange(periodData?.current?.averageViewPercentage,
@@ -106,7 +106,7 @@
                     <h5>Latest Video</h5>
                     <div class="video-header row">
                         <div class="thumbnailContainer flex-center col-md-3 col-8">
-                            <img [src]="latestVideoData?.thumbnail" alt="Video Thumbnail" class="latestThumbnail"
+                            <img [src]="latestVideoData?.thumbnail || 'assets/default.svg'" alt="Video Thumbnail" class="latestThumbnail"
                                 (click)="openVideo(latestVideoData.url)" />
                             <img src="assets/youtubeLogo.png" class="youtubeLogo">
                         </div>
@@ -121,7 +121,7 @@
                             <div class="col-6 col-md-4">
                                 <div class="stat-item">
                                     <span class="stat-label">Views</span>
-                                    <span class="stat-value">{{ latestVideoData?.views | number }}</span>
+                                    <span class="stat-value">{{ formatNumber(latestVideoData?.views) | number }}</span>
                                 </div>
                             </div>
                             <div class="col-6 col-md-4">
@@ -147,13 +147,13 @@
                             <div class="col-6 col-md-4">
                                 <div class="stat-item">
                                     <span class="stat-label">Subscribers Gained</span>
-                                    <span class="stat-value">{{ latestVideoData?.subscribersGained | number }}</span>
+                                    <span class="stat-value">{{ formatNumber(latestVideoData?.subscribersGained) | number }}</span>
                                 </div>
                             </div>
                             <div class="col-6 col-md-4">
                                 <div class="stat-item">
                                     <span class="stat-label">Shares</span>
-                                    <span class="stat-value">{{ latestVideoData?.shares | number }}</span>
+                                    <span class="stat-value">{{ formatNumber(latestVideoData?.shares) | number }}</span>
                                 </div>
                             </div>
                         </div>
@@ -167,14 +167,14 @@
                     <div class="bestHead">
                         <h5>Best Video</h5>
                         <div>
-                            <p-dropdown [options]="rangeData" [(ngModel)]="bestRange" optionLabel="name"
-                                optionValue="value" placeholder="Select Range" styleClass="w-full md:w-14rem"
-                                (onChange)="getBestVideoAPI(bestRange)"></p-dropdown>
+                            <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.best" optionLabel="name"
+                                optionValue="value" placeholder="Select Range" 
+                                (onChange)="getBestVideoAPI(rangeDefaults.best)"></p-select>
                         </div>
                     </div>
                     <div class="bestContent">
                         <div class="thumbnailContainer  flex-center">
-                            <img [src]="bestVideoData?.thumbnail" alt="Video Thumbnail" class="bestThumbnail"
+                            <img [src]="bestVideoData?.thumbnail || 'assets/default.svg'" alt="Video Thumbnail" class="bestThumbnail"
                                 (click)="openVideo(bestVideoData.url)" />
                             <img src="assets/youtubeLogo.png" class="youtubeLogo">
                         </div>
@@ -197,9 +197,9 @@
                 <div class="engagement mb1">
                     <div class="engagementHeader">
                         <h5>Engagement</h5>
-                        <p-dropdown [options]="rangeData" [(ngModel)]="engagementRange" optionLabel="name"
-                            optionValue="value" placeholder="Select Range" styleClass="w-full md:w-14rem"
-                            (onChange)="getEngagementAPI(engagementRange)"></p-dropdown>
+                        <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.engagement" optionLabel="name"
+                            optionValue="value" placeholder="Select Range" 
+                            (onChange)="getEngagementAPI(rangeDefaults.engagement)"></p-select>
                     </div>
                     <div class="row charts flex-center flex-row">
                         <div class="col-6 col-md-4 pieChart p1">
@@ -218,9 +218,9 @@
                     <div class="subscriber">
                         <div class="subscriberHeader mb-2">
                             <h5>Subscriber Trend</h5>
-                            <p-dropdown [options]="rangeData" [(ngModel)]="subscriberRange" optionLabel="name"
-                                optionValue="value" placeholder="Select Range" styleClass="w-full md:w-14rem"
-                                (onChange)="getSubscriberAPI(subscriberRange)"></p-dropdown>
+                            <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.subscriber" optionLabel="name"
+                                optionValue="value" placeholder="Select Range" 
+                                (onChange)="getSubscriberAPI(rangeDefaults.subscriber)"></p-select>
                         </div>
                         <div class="col-11 subscriberChart">
                             <p-chart type="bar" [data]="stackedData" [options]="stackedOptions" />
@@ -237,9 +237,9 @@
                     <div class="traffic">
                         <div class="trafficHeader mb-2">
                             <h5>Traffic Sources</h5>
-                            <p-dropdown [options]="rangeData" [(ngModel)]="trafficRange" optionLabel="name"
-                                optionValue="value" placeholder="Select Range" styleClass="w-full md:w-14rem"
-                                (onChange)="getTrafficSourcesAPI(subscriberRange)"></p-dropdown>
+                            <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.traffic" optionLabel="name"
+                                optionValue="value" placeholder="Select Range" 
+                                (onChange)="getTrafficSourcesAPI(rangeDefaults.traffic)"></p-select>
                         </div>
                         <div class="col-11 trafficChart">
                             <p-chart type="bar" [data]="doubleBarData" [options]="doubleBarOptions" />
@@ -254,9 +254,9 @@
                     <div class="retention">
                         <div class="retentionHeader">
                             <h5>Retention</h5>
-                            <p-dropdown [options]="rangeData" [(ngModel)]="retentionRange" optionLabel="name"
-                                optionValue="value" placeholder="Select Range" styleClass="w-full md:w-14rem"
-                                (onChange)="getRetentionAPI(retentionRange)"></p-dropdown>
+                            <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.retention" optionLabel="name"
+                                optionValue="value" placeholder="Select Range" 
+                                (onChange)="getRetentionAPI(rangeDefaults.retention)"></p-select>
                         </div>
                         <div class="retentionData">
                             <div class="row">
@@ -265,14 +265,14 @@
                                         <div class="row">
                                             <div class="col-6 retentionTile flex-column flex-center">
                                                 <div class="p1">
-                                                    <h3 class="retentionCount">{{retentionData?.engagedViews}}</h3>
+                                                    <h3 class="retentionCount">{{formatNumber(retentionData?.engagedViews)}}</h3>
                                                     <p class="retentionText">Engaged Views</p>
                                                 </div>
                                                 
                                             </div>
                                             <div class="col-6 retentionTile flex-column flex-center">
                                                 <div class="p1">
-                                                    <h3 class="retentionCount">{{retentionData?.views}}</h3>
+                                                    <h3 class="retentionCount">{{formatNumber(retentionData?.views)}}</h3>
                                                     <p class="retentionText">Views</p>
                                                 </div>
                                                 
@@ -312,20 +312,23 @@
                     <div class="demographics">
                         <div class="demographicsHeader mb-2">
                             <h5>Demographics</h5>
-                            <p-dropdown [options]="rangeData" [(ngModel)]="demographicsRange" optionLabel="name"
-                                optionValue="value" placeholder="Select Range" styleClass="w-full md:w-14rem"
-                                (onChange)="getDemographicsAPI(demographicsRange)"></p-dropdown>
+                            <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.demographics" optionLabel="name"
+                                optionValue="value" placeholder="Select Range" 
+                                (onChange)="getDemographicsAPI(rangeDefaults.demographics)"></p-select>
                         </div>
                         <div class="demographicsCharts">
                             <div class="row">
-                                <div class="col-12 col-md-4 ageGenderChart">
+                                <div class="col-12 col-md-4 p1 flex-column flex-center justify-content-between">
                                     <p-chart type="bar" [data]="genderAgeBarData" [options]="genderAgeBarOptions" />
+                                    <h5 class="m0 p1 chartTitle">Age/Gender Distribution</h5>
                                 </div>
-                                <div class="col-12 col-md-4 countryChart">
+                                <div class="col-12 col-md-4 p1 flex-column flex-center justify-content-between">
                                     <canvas id="treemapChart"></canvas>
+                                    <h5 class="m0 p1 chartTitle">Top country by Views</h5>
                                 </div>
-                                <div class="col-12 col-md-4 deviceChart">
+                                <div class="col-12 col-md-4 p1 flex-column flex-center justify-content-between">
                                     <p-chart type="pie" [data]="devicePieData" [options]="devicePieOptions" />
+                                    <h5 class="m0 p1 chartTitle">Device Type by Views</h5>
                                 </div>
                             </div>
                         </div>
