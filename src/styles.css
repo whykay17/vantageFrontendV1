@@ -38,6 +38,8 @@
 
 .mb1{ margin-bottom: 1rem; }
 
+.m1{ margin: 1rem; }
+
 @media (max-width: 900px) {
     html {
       font-size: 14px;
