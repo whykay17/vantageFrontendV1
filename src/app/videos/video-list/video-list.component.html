@@ -2,19 +2,25 @@
     <header class="flex-column align-items-center justify-content-center text-center mb-4">
         <h1>Your Videos</h1>
         <p>Pick any to View Detailed Stats</p>
+        <div class="col-10 col-md-6">
+            <p-iconfield class="searchField">
+                <p-inputicon styleClass="pi pi-search" />
+                <input class="search" type="text" [(ngModel)]="searchTerm" (input)="applySearch()"/>
+            </p-iconfield>
+        </div>
     </header>
     <div class="video-list mb1">
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-4" *ngFor="let video of videos">
+            <div class="col-12 col-md-6 col-lg-4 flex" *ngFor="let video of pagedVideos">
                 <div class="video-item glass" (click)="onVideoClick(video.id)">
-                    <img class="pb1" [src]="video.thumbnailUrl" alt="{{ video.title }} thumbnail">
-                    <h4>{{ video.title }}</h4>
-                    <p>{{ video.publishedOn | date: 'mediumDate'}}</p>
+                    <img class="mb1" [src]="video.thumbnailUrl" alt="{{ video.title }} thumbnail">
+                    <h4>{{ video?.title }}</h4>
+                    <p class="m0">{{ video.publishedOn | date: 'mediumDate'}}</p>
                 </div>
             </div>
         </div>
     </div>
-    <p-paginator class="glass-paginator" [rows]="9" [totalRecords]="videos.length" [dt]="glassPaginatorDT"></p-paginator>
+    <p-paginator class="glass-paginator" [first]="currentPage * rows" [rows]="rows" [totalRecords]="getFilteredVideos().length"  [rowsPerPageOptions]="[6, 9, 12]" (onPageChange)="pageChange($event)"></p-paginator>
 
 </div>
 

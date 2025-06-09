@@ -4,6 +4,10 @@ import { VideoListComponent } from './video-list/video-list.component';
 import { VideoDataComponent } from './video-data/video-data.component';
 import { RouterModule } from '@angular/router';
 import { PaginatorModule } from 'primeng/paginator';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,6 +17,10 @@ import { PaginatorModule } from 'primeng/paginator';
   imports: [
     CommonModule,
     PaginatorModule,
+    NgxSpinnerModule,
+    IconFieldModule,
+    InputIconModule,
+    FormsModule,
     RouterModule.forChild([
       {
         path: '',

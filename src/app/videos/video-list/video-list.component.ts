@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { VideoService } from '../../services/video.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { IVideo } from '../../../models/video.model';
 
 @Component({
   selector: 'app-video-list',
@@ -8,45 +11,70 @@ import { Component } from '@angular/core';
 })
 
 export class VideoListComponent {
-  videos = [
-    {
-      id: '1',
-      title: 'How to Build a Dashboard',
-      thumbnailUrl: 'https://img.youtube.com/vi/VIDEO_ID_1/hqdefault.jpg',
-      publishedOn: '2024-12-01'
-    },
-    {
-      id: '2',
-      title: 'Understanding Watch Time',
-      thumbnailUrl: 'https://img.youtube.com/vi/VIDEO_ID_2/hqdefault.jpg',
-      publishedOn: '2024-12-10'
-    },
-    {
-      id: '3',
-      title: 'Retention Analysis Explained',
-      thumbnailUrl: 'https://img.youtube.com/vi/VIDEO_ID_3/hqdefault.jpg',
-      publishedOn: '2025-01-05'
-    },  
-    {
-      id: '4',
-      title: 'Engagement Metrics Overview',
-      thumbnailUrl: 'https://img.youtube.com/vi/VIDEO_ID_4/hqdefault.jpg',
-      publishedOn: '2025-01-15'
-    },
-    {
-      id: '5',
-      title: 'Advanced Analytics Techniques',
-      thumbnailUrl: 'https://img.youtube.com/vi/VIDEO_ID_5/hqdefault.jpg',
-      publishedOn: '2025-02-01'
-    }
-  ];
 
-  glassPaginatorDT = {
-    surface: { glow: 'rgba(255,255,255,0.15)' },
-    backdrop: { blur: '8px' },
-    border: { radius: '12px' }
-  };
-  
+  constructor(private videoService: VideoService,private spinner:NgxSpinnerService) {}
+
+  ngOnInit(): void {
+    var storedVideoList = sessionStorage.getItem('videoList');
+    if (storedVideoList) {
+      this.allVideos = JSON.parse(storedVideoList);
+      this.updatePagedVideos();
+    }else{
+      this.getVideoListAPI();
+    }
+  }
+
+  allVideos: IVideo[] = [];
+  pagedVideos: IVideo[] = [];
+
+  currentPage: number = 0;
+  rows: number = 9;
+  searchTerm: string = '';
+
+  getVideoListAPI(){
+    this.spinner.show();
+    this.videoService.getVideoList().subscribe({
+      next: (response:IVideo[]) => {
+        this.allVideos = response;
+        this.updatePagedVideos();
+        sessionStorage.setItem('videoList', JSON.stringify(this.allVideos));
+        this.spinner.hide();
+      },
+      error: (error) => {
+        this.spinner.hide();
+      }
+    })
+  }
+
+  pageChange(event: any) {
+    this.currentPage = event.page;
+    this.rows = event.rows;
+    this.updatePagedVideos();
+  }
+
+  updatePagedVideos(videos?:IVideo[]) {
+    const arrayToPaginate = videos || this.getFilteredVideos();
+    const start = this.currentPage * this.rows;
+    const end = start + this.rows;
+    this.pagedVideos = arrayToPaginate.slice(start, end);
+  }
+
+  getFilteredVideos(): IVideo[] {
+    const term = this.searchTerm.toLowerCase().trim();
+    if (!term) return this.allVideos;
+    return this.allVideos.filter((video: IVideo) =>
+      video.title.toLowerCase().includes(term)
+    );
+  }
+
+  applySearch(): void {
+    const term = this.searchTerm.toLowerCase().trim();
+    const filtered = this.allVideos.filter((video: IVideo) =>
+      video.title.toLowerCase().includes(term)
+    );
+    this.currentPage = 0;
+    this.updatePagedVideos(filtered);
+  }
 
   onVideoClick(videoId: string) {
     console.log(`Video clicked: ${videoId}`);

@@ -1,3 +1,5 @@
+@import "../node_modules/primeicons/primeicons.css";
+
 :root {
     --primaryColor: #d3cfff;
     --secondaryColor: #4285f4;
@@ -35,6 +37,7 @@
 
 .pt1{ padding-top: 1rem; }
 .pb1{ padding-bottom: 1rem; }
+.pl1{ padding-left: 1rem; }
 
 .p1{ padding: 1rem; }
 
