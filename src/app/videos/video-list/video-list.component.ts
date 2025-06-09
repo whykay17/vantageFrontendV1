@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { VideoService } from '../../services/video.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IVideo } from '../../../models/video.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-list',
@@ -12,7 +13,7 @@ import { IVideo } from '../../../models/video.model';
 
 export class VideoListComponent {
 
-  constructor(private videoService: VideoService,private spinner:NgxSpinnerService) {}
+  constructor(private videoService: VideoService,private spinner:NgxSpinnerService,private router:Router) {}
 
   ngOnInit(): void {
     var storedVideoList = sessionStorage.getItem('videoList');
@@ -77,6 +78,6 @@ export class VideoListComponent {
   }
 
   onVideoClick(videoId: string) {
-    console.log(`Video clicked: ${videoId}`);
+    this.router.navigate(['/videos/', videoId]);
   }
 }

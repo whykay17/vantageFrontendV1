@@ -24,7 +24,11 @@ import { FormsModule } from '@angular/forms';
     RouterModule.forChild([
       {
         path: '',
-        component: VideoListComponent,
+        component: VideoListComponent
+      },
+      {
+        path:':id',
+        component: VideoDataComponent
       }
     ])
   ]
