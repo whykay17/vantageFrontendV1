@@ -5,8 +5,6 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
   })
 
-
-
 export class DashboardService {
 
     backendURL = 'http://localhost:5000/'
