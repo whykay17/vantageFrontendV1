@@ -8,15 +8,16 @@ import { Injectable } from "@angular/core";
 export class DashboardService {
 
     backendURL = 'http://localhost:5000/'
-    private overview = this.backendURL+'channel-overview';
-    private period = this.backendURL+'period-stats?';
-    private latest = this.backendURL+'latest-video';
-    private best = this.backendURL+'best-video?';
-    private engagement = this.backendURL+'engagement?';
-    private subscriber = this.backendURL+'subscriber?';
-    private trafficSources = this.backendURL+'traffic?';
-    private retention = this.backendURL+'retention?';
-    private demographics = this.backendURL+'demographics?';
+    rootUrl = 'channel/'
+    private overview = this.backendURL+this.rootUrl+'overview';
+    private period = this.backendURL+this.rootUrl+'period-stats?';
+    private latest = this.backendURL+this.rootUrl+'latest-video';
+    private best = this.backendURL+this.rootUrl+'best-video?';
+    private engagement = this.backendURL+this.rootUrl+'engagement?';
+    private subscriber = this.backendURL+this.rootUrl+'subscriber?';
+    private trafficSources = this.backendURL+this.rootUrl+'traffic?';
+    private retention = this.backendURL+this.rootUrl+'retention?';
+    private demographics = this.backendURL+this.rootUrl+'demographics?';
 
     constructor(private http:HttpClient){}
 

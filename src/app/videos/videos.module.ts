@@ -8,6 +8,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FormsModule } from '@angular/forms';
+import { ChartModule } from 'primeng/chart';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { FormsModule } from '@angular/forms';
     IconFieldModule,
     InputIconModule,
     FormsModule,
+    ChartModule,
+    ButtonModule,
     RouterModule.forChild([
       {
         path: '',
