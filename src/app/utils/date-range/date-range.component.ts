@@ -21,7 +21,14 @@ export class DateRangeComponent {
 
   apply() {
     if (this.customRange?.length === 2) {
-      this.rangeData.emit(this.customRange);
+      const startDate = this.formatDate(this.customRange[0]);
+      const endDate = this.formatDate(this.customRange[1]);
+
+      this.rangeData.emit({
+        start: startDate,
+        end: endDate
+      });
+
       this.show = false;
     }
   }
@@ -29,5 +36,9 @@ export class DateRangeComponent {
   cancel() {
     this.rangeData.emit(null);
     this.show = false;
+  }
+
+  private formatDate(date: Date): string {
+    return new Date(date).toISOString().slice(0, 10);
   }
 }

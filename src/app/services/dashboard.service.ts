@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -25,35 +25,56 @@ export class DashboardService {
         return this.http.get<any>(this.overview);
     }
 
-    getPeriodStats(range:number){
-        return this.http.get<any>(this.period+'period='+range);
+    getPeriodStats(range: { start: string, end: string }) {
+        const params = new HttpParams()
+            .set('start', range.start)
+            .set('end', range.end);
+        return this.http.get<any>(this.period, { params });
     }
 
     getLatestVideoStats(){
         return this.http.get<any>(this.latest);
     }
-
-    getBestVideo(range:number){
-        return this.http.get<any>(this.best+'period='+range);
+    
+    getBestVideo(range: { start: string, end: string }) {
+        const params = new HttpParams()
+            .set('start', range.start)
+            .set('end', range.end);
+        return this.http.get<any>(this.best, { params });
     }
-
-    getEngagementStats(range:number){
-        return this.http.get<any>(this.engagement+'period='+range);
+    
+    getEngagementStats(range: { start: string, end: string }) {
+        const params = new HttpParams()
+            .set('start', range.start)
+            .set('end', range.end);
+        return this.http.get<any>(this.engagement, { params });
     }
-
-    getSubscriberStats(range:number){
-        return this.http.get<any>(this.subscriber+'period='+range);
+    
+    getSubscriberStats(range: { start: string, end: string }) {
+        const params = new HttpParams()
+            .set('start', range.start)
+            .set('end', range.end);
+        return this.http.get<any>(this.subscriber, { params });
     }
-
-    getTrafficSources(range:number){
-        return this.http.get<any>(this.trafficSources+'period='+range);
+    
+    getTrafficSources(range: { start: string, end: string }) {
+        const params = new HttpParams()
+            .set('start', range.start)
+            .set('end', range.end);
+        return this.http.get<any>(this.trafficSources, { params });
     }
-
-    getRetentionStats(range:number){
-        return this.http.get<any>(this.retention+'period='+range);
+    
+    getRetentionStats(range: { start: string, end: string }) {
+        const params = new HttpParams()
+            .set('start', range.start)
+            .set('end', range.end);
+        return this.http.get<any>(this.retention, { params });
     }
-
-    getDemographics(range:number){
-        return this.http.get<any>(this.demographics+'period='+range);
+    
+    getDemographics(range: { start: string, end: string }) {
+        const params = new HttpParams()
+            .set('start', range.start)
+            .set('end', range.end);
+        return this.http.get<any>(this.demographics, { params });
     }
 }

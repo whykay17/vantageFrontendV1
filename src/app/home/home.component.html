@@ -21,7 +21,7 @@
                         <div>
                             <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.period" optionLabel="name"
                                 optionValue="value" placeholder="Select Range" 
-                                (onChange)="getPeriodAPI(rangeDefaults.period)"></p-select>
+                                (onChange)="onRangeChange('period', rangeDefaults.period)"></p-select>
                         </div>
                     </div>
 
@@ -169,7 +169,7 @@
                         <div>
                             <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.best" optionLabel="name"
                                 optionValue="value" placeholder="Select Range" 
-                                (onChange)="getBestVideoAPI(rangeDefaults.best)"></p-select>
+                                (onChange)="onRangeChange('best', rangeDefaults.best)"></p-select>
                         </div>
                     </div>
                     <div class="bestContent">
@@ -199,7 +199,7 @@
                         <h5>Engagement</h5>
                         <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.engagement" optionLabel="name"
                             optionValue="value" placeholder="Select Range" 
-                            (onChange)="getEngagementAPI(rangeDefaults.engagement)"></p-select>
+                            (onChange)="onRangeChange('engagement', rangeDefaults.engagement)"></p-select>
                     </div>
                     <div class="row charts flex-center flex-row">
                         <div class="col-6 col-md-4 pieChart p1">
@@ -220,7 +220,7 @@
                             <h5>Subscriber Trend</h5>
                             <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.subscriber" optionLabel="name"
                                 optionValue="value" placeholder="Select Range" 
-                                (onChange)="getSubscriberAPI(rangeDefaults.subscriber)"></p-select>
+                                (onChange)="onRangeChange('subscriber', rangeDefaults.subscriber)"></p-select>
                         </div>
                         <div class="col-11 subscriberChart">
                             <p-chart type="bar" [data]="stackedData" [options]="stackedOptions" />
@@ -239,7 +239,7 @@
                             <h5>Traffic Sources</h5>
                             <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.traffic" optionLabel="name"
                                 optionValue="value" placeholder="Select Range" 
-                                (onChange)="getTrafficSourcesAPI(rangeDefaults.traffic)"></p-select>
+                                (onChange)="onRangeChange('traffic', rangeDefaults.traffic)"></p-select>
                         </div>
                         <div class="col-11 trafficChart">
                             <p-chart type="bar" [data]="doubleBarData" [options]="doubleBarOptions" />
@@ -256,7 +256,7 @@
                             <h5>Retention</h5>
                             <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.retention" optionLabel="name"
                                 optionValue="value" placeholder="Select Range" 
-                                (onChange)="getRetentionAPI(rangeDefaults.retention)"></p-select>
+                                (onChange)="onRangeChange('retention', rangeDefaults.retention)"></p-select>
                         </div>
                         <div class="retentionData">
                             <div class="row">
@@ -314,7 +314,7 @@
                             <h5>Demographics</h5>
                             <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.demographics" optionLabel="name"
                                 optionValue="value" placeholder="Select Range" 
-                                (onChange)="getDemographicsAPI(rangeDefaults.demographics)"></p-select>
+                                (onChange)="onRangeChange('demographics', rangeDefaults.demographics)"></p-select>
                         </div>
                         <div class="demographicsCharts">
                             <div class="row">
@@ -338,3 +338,6 @@
         </div>
     </div>
 </div>
+@if (showDateRange) {
+    <app-date-range (rangeData)="receiveRange($event)"></app-date-range>
+}
