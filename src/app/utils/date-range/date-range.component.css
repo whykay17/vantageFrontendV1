@@ -1,0 +1,7 @@
+::ng-deep .p-inputtext {
+    display: none !important;
+  }
+
+::ng-deep .p-dialog-header{
+    justify-content: center!important;
+}

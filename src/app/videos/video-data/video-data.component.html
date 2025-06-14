@@ -5,7 +5,8 @@
                 <div class="overview flex-row">
                     <div class="col-md-3 col-12 thumbnail">
                         <div class="imageContainer">
-                            <img [src]="overviewData.thumbnailUrl || 'assets/default.svg'" alt="Video Thumbnail" (click)="openVideo(overviewData.videoUrl)">
+                            <img class="videoThumbnail" [src]="overviewData.thumbnailUrl || 'assets/default.svg'" alt="Video Thumbnail" (click)="openVideo(overviewData.videoUrl)">
+                            <img src="assets/youtubeLogo.png" class="youtubeLogo">
                         </div>
                     </div>
                     <div class="col-md-4 col-12">
