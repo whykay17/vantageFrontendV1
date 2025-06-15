@@ -513,8 +513,7 @@ export class HomeComponent {
   }
   
   receiveRange(range: { start: string, end: string }) {
-    console.log('Received date range:', range);
-    if (this.rangeSection) {
+    if (this.rangeSection && range) {
       switch (this.rangeSection) {
         case 'period':
           this.getPeriodAPI(range);
@@ -540,7 +539,8 @@ export class HomeComponent {
         default:
           console.warn(`Unhandled section: ${this.rangeSection}`);
       }
+    }else{
+      this.showDateRange=false;
     }
   }
-  
 }
