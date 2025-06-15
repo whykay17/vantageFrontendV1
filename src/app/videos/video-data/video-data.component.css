@@ -7,27 +7,125 @@
 .overview{
     padding: 1rem;
     display: flex;
-    .thumbnail{
+    .thumbnail {
+        display: flex;
+        flex-direction: column;
         align-self: center;
-        justify-self: center;
-
-        .imageContainer:hover{
-            display: flex;
-
-            .youtubeLogo{
-                opacity: 100%;
-            }
+        padding: 1rem;
+        align-items: center;
+    
+        .imageContainer {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
         }
-
-        .videoThumbnail{
+    
+        .videoThumbnail {
+            width: 100%;
             border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: 0.3s ease;
+            display: block;
+        }
+    
+        .youtubeLogo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%; /* Adjust based on what looks good */
+            opacity: 0;
+            transition: 0.3s ease;
+            pointer-events: none;
+            background-image: radial-gradient(
+            rgba(28, 28, 28, 0.909),
+            rgba(28, 28, 28, 0.704),
+            rgba(26, 26, 26, 0.301),
+            rgba(20, 20, 20, 0.026),
+            rgba(0, 0, 0, 0.0)
+            );
+
+        }
+    
+        .imageContainer:hover .videoThumbnail {
+            opacity: 0.3;
+            filter: blur(4px);
+        }
+    
+        .imageContainer:hover .youtubeLogo {
+            opacity: 1;
         }
 
-        .youtubeLogo{
-            transition: .5s ease;
-            opacity: 0;
-            position: fixed;
-            width: 12%;
+        .extButton {
+            margin-top: 1rem;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            width: 70%;
         }
     }
+
+    .overviewLabels {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        text-align: center;
+        gap: 0.25rem;
+        padding: 1rem 1rem 0rem 1rem;
+        padding-right: 1rem;
+      
+        h2 {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #f0f0f0;
+        }
+      
+        p {
+          font-size: 1rem;
+          color: #c0c0c0;
+        }
+      
+        span {
+          color: #00b023;
+          font-weight: 500;
+        }
+
+        .pi{
+            cursor: pointer;
+            color: antiquewhite;
+        }
+      }
+      
+      
+    .stats{
+        padding: 1rem 1rem 0rem 1rem;
+        justify-content: center;
+        align-items: center;
+
+        .stat-container{
+            padding: 0rem 1rem 1rem 0rem;
+        }
+
+        .stats-item{
+            padding: 1rem;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            h3{
+                font-size: 1.5rem;
+                font-weight: 500;
+                color: #fff;
+            }
+            p{
+                font-size: 1rem;
+                color: #bbb;
+                display: block;
+                margin-bottom: 0.3rem;
+            }
+
+        }
+    }
+    
 }

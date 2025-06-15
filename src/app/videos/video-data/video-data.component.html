@@ -1,37 +1,45 @@
-<div class="contents col-12 col-md-11 col-lg-10 m1 flex-column">
+<div class="contents col-12 col-md-11 col-lg-10 m1 flex-column p1">
     <div class="row">
-        <div class="col-12 p0">
+        <div class="p0">
             <div class="glass m1">
                 <div class="overview flex-row">
-                    <div class="col-md-3 col-12 thumbnail">
-                        <div class="imageContainer">
-                            <img class="videoThumbnail" [src]="overviewData.thumbnailUrl || 'assets/default.svg'" alt="Video Thumbnail" (click)="openVideo(overviewData.videoUrl)">
-                            <img src="assets/youtubeLogo.png" class="youtubeLogo">
+                    <div class="row">
+                        <div class="col-md-3 col-12 thumbnail">
+                            <div class="imageContainer">
+                                <img class="videoThumbnail" [src]="overviewData.thumbnailUrl || 'assets/default.svg'" alt="Video Thumbnail" (click)="openVideo(overviewData.videoUrl)">
+                                <img src="assets/youtubeLogo.png" class="youtubeLogo">
+                            </div>
+                            <a [href]="getStudioUrl()" target="_blank" rel="noopener noreferrer" pButton class="extButton">Open in Studio</a>
+                        </div>
+                        <div class="col-md-4 col-12 overviewLabels">
+                            <h2>{{overviewData.title}}</h2>
+                            <p class="m0">{{overviewData.publishedAt | date}}</p>
+                            <p class="m0">{{overviewData.duration}}</p>
+                            <p class="m0">Category: <span>{{overviewData.category}}</span></p>
+                            <p class="m0">Tags: <span>{{overviewData.tags}}</span></p>
+                            <p class="m0">Video ID:
+                                <span>{{videoId}}&nbsp;</span>
+                                <span class="pi pi-copy" (click)="copyText(videoId)"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-5 col-12 flex-center">
+                            <div class="stats">
+                                <div class="row">
+                                    @for (item of overviewData.stats; track item.label) {
+                                    <div class="col-md-4 col-6 stat-container">
+                                        <div class="flex-row flex-center glass">
+                                            <div class="stats-item">
+                                                <h3>{{ item.value }}</h3>
+                                                <p>{{ item.label }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                </div> 
+                            </div>  
                         </div>
                     </div>
-                    <div class="col-md-4 col-12">
-                        <h2>{{overviewData.title}}</h2>
-                        <p class="m0">{{overviewData.publishedAt | date}}</p>
-                        <p class="m0">{{overviewData.duration}}</p>
-                        <p class="m0">Category: <span>{{overviewData.category}}</span></p>
-                        <p class="m0">Tags: <span>{{overviewData.tags}}</span></p>
-                        <p class="m0">Video ID: <span>{{videoId}}</span></p>
-                        <a [href]="getStudioUrl()" target="_blank" rel="noopener noreferrer" pButton class="extButton">Open in Studio</a>
-                    </div>
-                    <div class="col-md-5 col-12">
-                        <div class="row">
-                            @for (item of overviewData.stats; track item.key) {
-                            <div class="col-md-4 col-6 glass">
-                                <div class="statistic flex-row">
-                                    <div class="statistic-item">
-                                        <h3>{{ item.value }}</h3>
-                                        <p>{{ item.label }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            }
-                        </div>  
-                    </div>
+                    
                 </div>
             </div>
         </div>
