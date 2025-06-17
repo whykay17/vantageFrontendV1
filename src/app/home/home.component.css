@@ -1,6 +1,7 @@
 .baseContainer{
     padding:2.5% 2.5%;
     font-family: var(--font1);
+    color: var(--textColor);
     margin: auto;
 }
 

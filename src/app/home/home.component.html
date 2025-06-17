@@ -1,4 +1,15 @@
 <div class="col-12 col-md-11 col-xl-10 baseContainer">
+    <div class="dashboard-header flex-row justify-content-around items-center mb-4 p-2">
+        <h2>Channel Dashboard</h2>
+        <div class="flex-row items-center justify-content-around gap-2">
+          <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.all" optionLabel="name"
+          optionValue="value" placeholder="Select Range" 
+          (onChange)="onRangeChange('all', rangeDefaults.all)"></p-select>
+          <a pButton class="extButton" (click)="refreshAPI()"><i class="pi pi-refresh"></i></a>
+          <a pButton class="extButton"><i class="pi pi-print"></i></a>
+        </div>
+    </div>
+      
     <div class="row">
         <div class="col-lg-4">
             <div class="overview card glass">
@@ -339,5 +350,8 @@
     </div>
 </div>
 @if (showDateRange) {
-    <app-date-range (rangeData)="receiveRange($event)"></app-date-range>
+    <app-date-range 
+        (rangeData)="receiveRange($event)"
+        (closeEvent)="showDateRange = false">
+    </app-date-range>
 }

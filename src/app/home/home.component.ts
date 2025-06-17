@@ -63,6 +63,7 @@ export class HomeComponent {
     traffic: '3000',
     retention: '3000',
     demographics: '3000',
+    all:'30'
   };
   
   showDateRange:boolean=false;
@@ -116,9 +117,6 @@ export class HomeComponent {
         this.setTreemapChart(storedDemographics?.country || []);
       }, 500);
     } else {
-      this.getDashboardAPI();
-  
-      // Convert integer values to date ranges and call APIs
       const periodRange = this.getDateDaysAgo(parseInt(this.rangeDefaults.period));
       const bestRange = this.getDateDaysAgo(parseInt(this.rangeDefaults.best));
       const engagementRange = this.getDateDaysAgo(parseInt(this.rangeDefaults.engagement));
@@ -126,7 +124,8 @@ export class HomeComponent {
       const trafficRange = this.getDateDaysAgo(parseInt(this.rangeDefaults.traffic));
       const retentionRange = this.getDateDaysAgo(parseInt(this.rangeDefaults.retention));
       const demographicsRange = this.getDateDaysAgo(parseInt(this.rangeDefaults.demographics));
-  
+
+      this.getDashboardAPI();
       this.getPeriodAPI(periodRange);
       this.getLatestVideoAPI();
       this.getBestVideoAPI(bestRange);
@@ -136,6 +135,147 @@ export class HomeComponent {
       this.getRetentionAPI(retentionRange);
       this.getDemographicsAPI(demographicsRange);
     }
+  }
+
+  getChange(current: number, previous: number): number {
+    if (previous === 0) {
+      return current === 0 ? 0 : 100;
+    }
+    const change = ((current - previous) / Math.abs(previous)) * 100;
+    return parseFloat(change.toFixed(1));
+  }
+
+  getChangeClass(change: number): string {
+    if (change > 0) return 'positive';     // green
+    if (change < 0) return 'negative';      // red
+    return 'neutral';                       // neutral
+  }
+
+  onRangeChange(section: string, value: string) {
+    if (value === 'custom') {
+      this.showDateRange = true;
+      this.rangeSection = section;
+    } else {
+      this.showDateRange = false;
+      const dateRange = this.getDateDaysAgo(parseInt(value));
+      
+      switch (section) {
+        case 'period':
+          this.getPeriodAPI(dateRange);
+          break;
+        case 'best':
+          this.getBestVideoAPI(dateRange);
+          break;
+        case 'engagement':
+          this.getEngagementAPI(dateRange);
+          break;
+        case 'subscriber':
+          this.getSubscriberAPI(dateRange);
+          break;
+        case 'traffic':
+          this.getTrafficSourcesAPI(dateRange);
+          break;
+        case 'retention':
+          this.getRetentionAPI(dateRange);
+          break;
+        case 'demographics':
+          this.getDemographicsAPI(dateRange);
+          break;
+        case 'all':
+          this.getPeriodAPI(dateRange);
+          this.getBestVideoAPI(dateRange);
+          this.getEngagementAPI(dateRange);
+          this.getSubscriberAPI(dateRange);
+          this.getTrafficSourcesAPI(dateRange);
+          this.getRetentionAPI(dateRange);
+          this.getDemographicsAPI(dateRange);
+          break;
+        default:
+          console.warn(`Unhandled section: ${section}`);
+      }
+    }
+  }
+
+  getDateDaysAgo(days: number): { start: string, end: string } {
+    const today = new Date(); // Create a new Date object for today
+    const pastDate = new Date(); // Create a separate Date object for the past date
+    pastDate.setDate(today.getDate() - days); // Modify only the pastDate object
+    return {
+      start: pastDate.toISOString().slice(0, 10), // Format as YYYY-MM-DD
+      end: today.toISOString().slice(0, 10)      // Format as YYYY-MM-DD
+    };
+  }
+
+  openVideo(url:string){
+    window.open(url,'_blank');
+  }
+
+  formatNumber(value: number): string {
+    if (value >= 1_000_000) {
+      return (value / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (value >= 1_000) {
+      return (value / 1_000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return value.toString();
+  }
+  
+  receiveRange(range: { start: string, end: string }) {
+    if (this.rangeSection && range) {
+      const dateRangeText = `${range.start} - ${range.end}`;
+      
+      switch (this.rangeSection) {
+        case 'period':
+          this.rangeDefaults.period = 'custom';
+          this.getPeriodAPI(range);
+          break;
+        case 'best':
+          this.rangeDefaults.best = 'custom';
+          this.getBestVideoAPI(range);
+          break;
+        case 'engagement':
+          this.rangeDefaults.engagement = 'custom';
+          this.getEngagementAPI(range);
+          break;
+        case 'subscriber':
+          this.rangeDefaults.subscriber = 'custom';
+          this.getSubscriberAPI(range);
+          break;
+        case 'traffic':
+          this.rangeDefaults.traffic = 'custom';
+          this.getTrafficSourcesAPI(range);
+          break;
+        case 'retention':
+          this.rangeDefaults.retention = 'custom';
+          this.getRetentionAPI(range);
+          break;
+        case 'demographics':
+          this.rangeDefaults.demographics = 'custom';
+          this.getDemographicsAPI(range);
+          break;
+        case 'all':
+          type RangeSection = 'period' | 'best' | 'engagement' | 'subscriber' | 'traffic' | 'retention' | 'demographics' | 'all';
+          const sections: RangeSection[] = ['period', 'best', 'engagement', 'subscriber', 'traffic', 'retention', 'demographics', 'all'];
+          for (const section of sections) {
+            this.rangeDefaults[section] = 'custom';
+          }
+          this.getPeriodAPI(range);
+          this.getBestVideoAPI(range);
+          this.getEngagementAPI(range);
+          this.getSubscriberAPI(range);
+          this.getTrafficSourcesAPI(range);
+          this.getRetentionAPI(range);
+          this.getDemographicsAPI(range);
+          break;
+        default:
+          console.warn(`Unhandled section: ${this.rangeSection}`);
+      }
+    }
+    this.showDateRange = false;
+  }
+
+  refreshAPI(){
+    this.getDashboardAPI();
   }
 
   getDashboardAPI() {
@@ -156,7 +296,7 @@ export class HomeComponent {
     this.dashboardService.getPeriodStats(dateRange).subscribe({
       next: (data) => {
         this.periodData = data;
-        this.rangeDefaults.period = `${dateRange.start} - ${dateRange.end}`;
+        // this.rangeDefaults.period = `${dateRange.start} - ${dateRange.end}`;
         sessionStorage.setItem('periodData', JSON.stringify(data));
         this.spinner.hide();
       },
@@ -185,7 +325,6 @@ export class HomeComponent {
     this.dashboardService.getBestVideo(dateRange).subscribe({
       next: (data) => {
         this.bestVideoData = data;
-        this.rangeDefaults.best = `${dateRange.start} - ${dateRange.end}`;
         sessionStorage.setItem('bestVideoData', JSON.stringify(data));
         this.spinner.hide();
       },
@@ -200,7 +339,6 @@ export class HomeComponent {
     this.dashboardService.getEngagementStats(dateRange).subscribe({
       next: (data) => {
         this.engagementData = data;
-        this.rangeDefaults.engagement = `${dateRange.start} - ${dateRange.end}`;
         this.setEngagementCharts(data);
         sessionStorage.setItem('engagementData', JSON.stringify(data));
         this.spinner.hide();
@@ -217,7 +355,6 @@ export class HomeComponent {
       next: (data) => {
         this.setSubscriberCharts(data);
         sessionStorage.setItem('subscriberData', JSON.stringify(data));
-        this.rangeDefaults.subscriber = `${dateRange.start} - ${dateRange.end}`;
         this.spinner.hide();
       },
       error: () => {
@@ -232,7 +369,6 @@ export class HomeComponent {
       next: (data) => {
         this.setTrafficSourcesCharts(data);
         sessionStorage.setItem('trafficSourcesData', JSON.stringify(data));
-        this.rangeDefaults.traffic = `${dateRange.start} - ${dateRange.end}`;
         this.spinner.hide();
       },
       error: () => {
@@ -246,7 +382,6 @@ export class HomeComponent {
     this.dashboardService.getRetentionStats(dateRange).subscribe({
       next: (data) => {
         this.retentionLineData = data?.line_data || {};
-        this.rangeDefaults.retention = `${dateRange.start} - ${dateRange.end}`;
         this.setRetentionCharts(data);
         sessionStorage.setItem('retentionData', JSON.stringify(data));
         this.spinner.hide();
@@ -262,7 +397,6 @@ export class HomeComponent {
     this.dashboardService.getDemographics(dateRange).subscribe({
       next: (data) => {
         this.demographicsData = data;
-        this.rangeDefaults.demographics = `${dateRange.start} - ${dateRange.end}`;
         sessionStorage.setItem('demographicsData', JSON.stringify(data));
         this.setDemographicsCharts(data);
         this.setTreemapChart(data?.country || []);
@@ -434,113 +568,5 @@ export class HomeComponent {
         }
       }
     });
-  }
-  
-
-  getChange(current: number, previous: number): number {
-    if (previous === 0) {
-      return current === 0 ? 0 : 100;
-    }
-    const change = ((current - previous) / Math.abs(previous)) * 100;
-    return parseFloat(change.toFixed(1));
-  }
-
-  getChangeClass(change: number): string {
-    if (change > 0) return 'positive';     // green
-    if (change < 0) return 'negative';      // red
-    return 'neutral';                       // neutral
-  }
-
-  onRangeChange(section: string, value: string) {
-    if (value === 'custom') {
-      this.showDateRange = true;
-      this.rangeSection = section; // Track which section triggered
-    } else {
-      this.showDateRange = false;
-  
-      const dateRange = this.getDateDaysAgo(parseInt(value));
-  
-      switch (section) {
-        case 'period':
-          this.getPeriodAPI(dateRange);
-          break;
-        case 'best':
-          this.getBestVideoAPI(dateRange);
-          break;
-        case 'engagement':
-          this.getEngagementAPI(dateRange);
-          break;
-        case 'subscriber':
-          this.getSubscriberAPI(dateRange);
-          break;
-        case 'traffic':
-          this.getTrafficSourcesAPI(dateRange);
-          break;
-        case 'retention':
-          this.getRetentionAPI(dateRange);
-          break;
-        case 'demographics':
-          this.getDemographicsAPI(dateRange);
-          break;
-        default:
-          console.warn(`Unhandled section: ${section}`);
-      }
-    }
-  }
-
-  getDateDaysAgo(days: number): { start: string, end: string } {
-    const today = new Date(); // Create a new Date object for today
-    const pastDate = new Date(); // Create a separate Date object for the past date
-    pastDate.setDate(today.getDate() - days); // Modify only the pastDate object
-    return {
-      start: pastDate.toISOString().slice(0, 10), // Format as YYYY-MM-DD
-      end: today.toISOString().slice(0, 10)      // Format as YYYY-MM-DD
-    };
-  }
-
-  openVideo(url:string){
-    window.open(url,'_blank');
-  }
-
-  formatNumber(value: number): string {
-    if (value >= 1_000_000) {
-      return (value / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
-    }
-    if (value >= 1_000) {
-      return (value / 1_000).toFixed(1).replace(/\.0$/, '') + 'K';
-    }
-    return value.toString();
-  }
-  
-  receiveRange(range: { start: string, end: string }) {
-    if (this.rangeSection && range) {
-      switch (this.rangeSection) {
-        case 'period':
-          this.getPeriodAPI(range);
-          break;
-        case 'best':
-          this.getBestVideoAPI(range);
-          break;
-        case 'engagement':
-          this.getEngagementAPI(range);
-          break;
-        case 'subscriber':
-          this.getSubscriberAPI(range);
-          break;
-        case 'traffic':
-          this.getTrafficSourcesAPI(range);
-          break;
-        case 'retention':
-          this.getRetentionAPI(range);
-          break;
-        case 'demographics':
-          this.getDemographicsAPI(range);
-          break;
-        default:
-          console.warn(`Unhandled section: ${this.rangeSection}`);
-      }
-    }else{
-      this.showDateRange=false;
-    }
   }
 }
