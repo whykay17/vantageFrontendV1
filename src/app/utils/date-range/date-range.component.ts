@@ -22,7 +22,10 @@ export class DateRangeComponent {
   apply() {
     if (this.customRange?.length === 2) {
       const startDate = this.formatDate(this.customRange[0]);
-      const endDate = this.formatDate(this.customRange[1]);
+      var endDate = this.formatDate(this.customRange[1]);
+      if (endDate < startDate) {
+        endDate= this.formatDate(new Date());
+      }
 
       this.rangeData.emit({
         start: startDate,

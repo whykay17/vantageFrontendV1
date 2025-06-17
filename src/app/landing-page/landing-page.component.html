@@ -1,0 +1,50 @@
+<div class="landing-container">
+  <!-- Hero Section -->
+  <section class="hero glass">
+    <div class="hero-content">
+      <h1>Welcome to Vantage</h1>
+      <p class="subtitle">Your Ultimate YouTube Analytics Platform</p>
+      <p class="description">Take control of your channel's growth with powerful analytics, insights, and performance tracking tools.</p>
+      <div class="cta-buttons">
+        <a routerLink="/home" pButton class="p-button-rounded p-button-lg">Get Started</a>
+        <a routerLink="/videos" pButton class="p-button-rounded p-button-outlined p-button-lg">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="features glass">
+    <h2>Why Choose Vantage?</h2>
+    <div class="features-grid">
+      <div class="feature-card glass" *ngFor="let feature of features">
+        <i [class]="feature.icon"></i>
+        <h3>{{feature.title}}</h3>
+        <p>{{feature.description}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animated Sections -->
+  <div class="sections-container">
+    <section class="info-section glass" *ngFor="let section of sections; let i = index"
+             [class.visible]="true"
+             (inViewport)="onIntersection($event, i)">
+      <div class="section-content" [class.right-align]="i % 2 === 1">
+        <div class="text-content">
+          <h2>{{section.title}}</h2>
+          <p>{{section.description}}</p>
+        </div>
+        <div class="image-content">
+          <img [src]="section.image" [alt]="section.title">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Call to Action -->
+  <section class="cta-section glass">
+    <h2>Ready to Grow Your Channel?</h2>
+    <p>Start analyzing your YouTube performance today</p>
+    <a routerLink="/home" pButton class="p-button-rounded p-button-lg">Get Started Now</a>
+  </section>
+</div>
