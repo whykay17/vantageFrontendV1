@@ -33,6 +33,11 @@
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.147);
+    transition: 0.3s ease-in-out;
+}
+
+.glass:hover{
+    transform: scale(1.01);
 }
 
 .pt1{ padding-top: 1rem; }

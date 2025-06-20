@@ -46,8 +46,12 @@ nav {
     font-family: var(--logoFont);
     font-weight: 400;
     font-size: 2.5rem;
-    color: #d3cfff;
     padding: 0.5rem 0.5rem 0.5rem 2rem;
+    
+    a{
+        text-decoration: none;
+        color: #d3cfff;
+    }
 }
 
 .tabs {
