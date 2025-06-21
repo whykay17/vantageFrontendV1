@@ -1,50 +1,96 @@
 <div class="landing-container">
-  <!-- Hero Section -->
-  <section class="hero glass">
+  <!-- HERO -->
+  <section class="hero fullpage" 
+           appInViewport 
+           (inViewport)="onViewportChange('hero', $event)" 
+           [class.visible]="sectionVisible.hero">
     <div class="hero-content">
-      <h1>Welcome to Vantage</h1>
-      <p class="subtitle">Your Ultimate YouTube Analytics Platform</p>
-      <p class="description">Take control of your channel's growth with powerful analytics, insights, and performance tracking tools.</p>
+      <h1 class="logo">Vantage</h1>
+      <h2>Personalized YouTube Analytics</h2>
+      <p class="subtitle">See what drives your channel’s growth</p>
+      <p class="description">Custom dashboards, audience insights, and clear next steps — no fluff, just data that helps.</p>
       <div class="cta-buttons">
         <a routerLink="/home" pButton class="p-button-rounded p-button-lg">Get Started</a>
-        <a routerLink="/videos" pButton class="p-button-rounded p-button-outlined p-button-lg">Learn More</a>
+        <a href="#" pButton class="p-button-rounded p-button-outlined p-button-lg">See Example Report</a>
       </div>
+      <small class="trust">Secure connection, directly from YouTube. Your data stays private.</small>
+    </div>
+    <div class="scroll-indicator">
+      <span class="arrow pi pi-angle-down"></span>
     </div>
   </section>
 
-  <!-- Features Grid -->
-  <section class="features glass">
-    <h2>Why Choose Vantage?</h2>
+  <!-- FEATURES -->
+  <section class="features fullpage" 
+           appInViewport 
+           (inViewport)="onViewportChange('features', $event)" 
+           [class.visible]="sectionVisible.features">
+    <h2>What You Get</h2>
     <div class="features-grid">
-      <div class="feature-card glass" *ngFor="let feature of features">
-        <i [class]="feature.icon"></i>
-        <h3>{{feature.title}}</h3>
-        <p>{{feature.description}}</p>
+      <div class="feature-card glass">
+        <i class="pi pi-chart-bar"></i>
+        <h3>📊 Custom Dashboards</h3>
+        <p>Track subscribers, views, retention — focused on *your* channel’s goals.</p>
+      </div>
+      <div class="feature-card glass">
+        <i class="pi pi-users"></i>
+        <h3>🔎 Deep Audience Insights</h3>
+        <p>Understand who’s watching, where, and how — plan smarter content.</p>
+      </div>
+      <div class="feature-card glass">
+        <i class="pi pi-bolt"></i>
+        <h3>🚀 Growth-Focused Reports</h3>
+        <p>No filler — just clear actions to grow your channel.</p>
+      </div>
+      <div class="feature-card glass">
+        <i class="pi pi-cog"></i>
+        <h3>⚙️ Flexible Tools</h3>
+        <p>Traffic sources, retention drill-downs — more coming soon.</p>
       </div>
     </div>
   </section>
 
-  <!-- Animated Sections -->
-  <div class="sections-container">
-    <section class="info-section glass" *ngFor="let section of sections; let i = index"
-             [class.visible]="true"
-             (inViewport)="onIntersection($event, i)">
-      <div class="section-content" [class.right-align]="i % 2 === 1">
-        <div class="text-content">
-          <h2>{{section.title}}</h2>
-          <p>{{section.description}}</p>
-        </div>
-        <div class="image-content">
-          <img [src]="section.image" [alt]="section.title">
-        </div>
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works fullpage" 
+           appInViewport 
+           (inViewport)="onViewportChange('howItWorks', $event)" 
+           [class.visible]="sectionVisible.howItWorks">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>1️⃣ Connect Your Channel</h3>
+        <p>Secure OAuth — no password sharing.</p>
       </div>
-    </section>
-  </div>
+      <div class="step">
+        <h3>2️⃣ Get Your Dashboard</h3>
+        <p>See what matters most at a glance.</p>
+      </div>
+      <div class="step">
+        <h3>3️⃣ Take Action</h3>
+        <p>Use data-backed insights to grow.</p>
+      </div>
+    </div>
+  </section>
 
-  <!-- Call to Action -->
-  <section class="cta-section glass">
-    <h2>Ready to Grow Your Channel?</h2>
-    <p>Start analyzing your YouTube performance today</p>
-    <a routerLink="/home" pButton class="p-button-rounded p-button-lg">Get Started Now</a>
+  <!-- ABOUT -->
+  <section class="about fullpage" 
+           appInViewport 
+           (inViewport)="onViewportChange('about', $event)" 
+           [class.visible]="sectionVisible.about">
+    <h2>Why Vantage?</h2>
+    <p>
+      Built by a creator, for creators. Vantage blends software expertise and a passion for data 
+      to give you reports that actually help you grow. Your data is safe — we only access what’s needed.
+    </p>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <section class="cta-section fullpage" 
+           appInViewport 
+           (inViewport)="onViewportChange('cta', $event)" 
+           [class.visible]="sectionVisible.cta">
+    <h2>Ready to unlock your data?</h2>
+    <p>Connect your channel and see insights in minutes.</p>
+    <a routerLink="/auth" pButton class="p-button-rounded p-button-lg">Get Started Now</a>
   </section>
 </div>
