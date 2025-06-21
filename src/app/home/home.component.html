@@ -27,82 +27,69 @@
         <div class="col-lg-8">
             <div class="card glass">
                 <div class="period">
-                    <div class="periodHead">
-                        <h5 class="cardTitle">Performance</h5>
+                    <div class="periodHead flex-row justify-content-around p1">
+                        <h5>Performance</h5>
                         <div>
                             <p-select [options]="rangeData" [(ngModel)]="rangeDefaults.period" optionLabel="name"
                                 optionValue="value" placeholder="Select Range" 
                                 (onChange)="onRangeChange('period', rangeDefaults.period)"></p-select>
                         </div>
                     </div>
-
-                    <div class="container">
-                        <div class="row fw-bold border-bottom py-2">
-                            <div class="col-6">Metric</div>
-                            <div class="col-md-4 col-3">Current</div>
-                            <div class="col-md-2 col-3">Change</div>
-                        </div>
-
-                        <div class="row py-2 border-bottom">
-                            <div class="col-6">Subscriber Gained</div>
-                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.subscribersGained) }}</div>
-                            <div class="col-md-2 col-3"
-                                [ngClass]="getChangeClass(getChange(periodData?.current?.subscribersGained, periodData?.previous?.subscribersGained))">
-                                {{ getChange(periodData?.current?.subscribersGained,
-                                periodData?.previous?.subscribersGained) | number:'1.0-1' }}%
+                    <div class="video-stats">
+                        <div class="row g-3">
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Subscribers Gained</span>
+                                    <span class="stat-value">{{ formatNumber(periodData?.current?.subscribersGained) }}</span>
+                                    <span class="stat-change" [ngClass]="getChangeClass(getChange(periodData?.current?.subscribersGained, periodData?.previous?.subscribersGained))">
+                                        {{ getChange(periodData?.current?.subscribersGained, periodData?.previous?.subscribersGained) | number:'1.0-1' }}%
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row py-2 border-bottom">
-                            <div class="col-6">Views</div>
-                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.views) }}</div>
-                            <div class="col-md-2 col-3"
-                                [ngClass]="getChangeClass(getChange(periodData?.current?.views, periodData?.previous?.views))">
-                                {{ getChange(periodData?.current?.views, periodData?.previous?.views) | number:'1.0-1'
-                                }}%
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Views</span>
+                                    <span class="stat-value">{{ formatNumber(periodData?.current?.views) }}</span>
+                                    <span class="stat-change" [ngClass]="getChangeClass(getChange(periodData?.current?.views, periodData?.previous?.views))">
+                                        {{ getChange(periodData?.current?.views, periodData?.previous?.views) | number:'1.0-1' }}%
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row py-2 border-bottom">
-                            <div class="col-6">Likes</div>
-                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.likes) }}</div>
-                            <div class="col-md-2 col-3"
-                                [ngClass]="getChangeClass(getChange(periodData?.current?.likes, periodData?.previous?.likes))">
-                                {{ getChange(periodData?.current?.likes, periodData?.previous?.likes) | number:'1.0-1'
-                                }}%
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Likes</span>
+                                    <span class="stat-value">{{ formatNumber(periodData?.current?.likes) }}</span>
+                                    <span class="stat-change" [ngClass]="getChangeClass(getChange(periodData?.current?.likes, periodData?.previous?.likes))">
+                                        {{ getChange(periodData?.current?.likes, periodData?.previous?.likes) | number:'1.0-1' }}%
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row py-2 border-bottom">
-                            <div class="col-6">Comments</div>
-                            <div class="col-md-4 col-3">{{ formatNumber(periodData?.current?.comments) }}</div>
-                            <div class="col-md-2 col-3"
-                                [ngClass]="getChangeClass(getChange(periodData?.current?.comments, periodData?.previous?.comments))">
-                                {{ getChange(periodData?.current?.comments, periodData?.previous?.comments) |
-                                number:'1.0-1' }}%
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Comments</span>
+                                    <span class="stat-value">{{ formatNumber(periodData?.current?.comments) }}</span>
+                                    <span class="stat-change" [ngClass]="getChangeClass(getChange(periodData?.current?.comments, periodData?.previous?.comments))">
+                                        {{ getChange(periodData?.current?.comments, periodData?.previous?.comments) | number:'1.0-1' }}%
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row py-2 border-bottom">
-                            <div class="col-6">Watchtime (hours)</div>
-                            <div class="col-md-4 col-3">{{ periodData?.current?.estimatedMinutesWatched / 60 |
-                                number:'1.2-2' }}
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Watchtime (hours)</span>
+                                    <span class="stat-value">{{ periodData?.current?.estimatedMinutesWatched / 60 | number:'1.2-2' }}</span>
+                                    <span class="stat-change" [ngClass]="getChangeClass(getChange(periodData?.current?.estimatedMinutesWatched, periodData?.previous?.estimatedMinutesWatched))">
+                                        {{ getChange(periodData?.current?.estimatedMinutesWatched, periodData?.previous?.estimatedMinutesWatched) | number:'1.0-1' }}%
+                                    </span>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-3"
-                                [ngClass]="getChangeClass(getChange(periodData?.current?.estimatedMinutesWatched, periodData?.previous?.estimatedMinutesWatched))">
-                                {{ getChange(periodData?.current?.estimatedMinutesWatched,
-                                periodData?.previous?.estimatedMinutesWatched) | number:'1.0-1' }}%
-                            </div>
-                        </div>
-
-                        <div class="row py-2 border-bottom">
-                            <div class="col-6">Avg. Watch %</div>
-                            <div class="col-md-4 col-3">{{ periodData?.current?.averageViewPercentage | number:'1.1-2'
-                                }}%</div>
-                            <div class="col-md-2 col-3"
-                                [ngClass]="getChangeClass(getChange(periodData?.current?.averageViewPercentage, periodData?.previous?.averageViewPercentage))">
-                                {{ getChange(periodData?.current?.averageViewPercentage,
-                                periodData?.previous?.averageViewPercentage) | number:'1.0-1' }}%
+                            <div class="col-6 col-md-4">
+                                <div class="stat-item">
+                                    <span class="stat-label">Avg. Watch %</span>
+                                    <span class="stat-value">{{ periodData?.current?.averageViewPercentage | number:'1.1-2' }}%</span>
+                                    <span class="stat-change" [ngClass]="getChangeClass(getChange(periodData?.current?.averageViewPercentage, periodData?.previous?.averageViewPercentage))">
+                                        {{ getChange(periodData?.current?.averageViewPercentage, periodData?.previous?.averageViewPercentage) | number:'1.0-1' }}%
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
