@@ -1,3 +1,6 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 <div class="landing-container">
   <!-- HERO -->
   <section class="hero fullpage" 
@@ -10,10 +13,9 @@
       <p class="subtitle">See what drives your channel’s growth</p>
       <p class="description">Custom dashboards, audience insights, and clear next steps — no fluff, just data that helps.</p>
       <div class="cta-buttons">
-        <a routerLink="/home" pButton class="p-button-rounded p-button-lg">Get Started</a>
+        <a (click)="login()" pButton class="p-button-rounded p-button-lg">Get Started</a>
         <a href="#" pButton class="p-button-rounded p-button-outlined p-button-lg">See Example Report</a>
       </div>
-      <small class="trust">Secure connection, directly from YouTube. Your data stays private.</small>
     </div>
     <div class="scroll-indicator">
       <span class="arrow pi pi-angle-down"></span>
@@ -27,50 +29,72 @@
            [class.visible]="sectionVisible.features">
     <h2>What You Get</h2>
     <div class="features-grid">
-      <div class="feature-card glass">
-        <i class="pi pi-chart-bar"></i>
-        <h3>📊 Custom Dashboards</h3>
-        <p>Track subscribers, views, retention — focused on *your* channel’s goals.</p>
+      <div class="row">
+        <div class="col-12 col-md-6">
+        <div class="feature-card glass">
+          <i class="pi pi-chart-bar"></i>
+          <h3>📊 Custom Dashboards</h3>
+          <p>Track subscribers, views, retention — focused on *your* channel’s goals.</p>
+        </div>
       </div>
-      <div class="feature-card glass">
-        <i class="pi pi-users"></i>
-        <h3>🔎 Deep Audience Insights</h3>
-        <p>Understand who’s watching, where, and how — plan smarter content.</p>
+      <div class="col-12 col-md-6">
+        <div class="feature-card glass">
+          <i class="pi pi-users"></i>
+          <h3>🔎 Deep Audience Insights</h3>
+          <p>Understand who’s watching, where, and how — plan smarter content.</p>
+        </div>
       </div>
-      <div class="feature-card glass">
-        <i class="pi pi-bolt"></i>
-        <h3>🚀 Growth-Focused Reports</h3>
-        <p>No filler — just clear actions to grow your channel.</p>
+      <div class="col-12 col-md-6">
+        <div class="feature-card glass">
+          <i class="pi pi-bolt"></i>
+          <h3>🚀 Growth-Focused Reports</h3>
+          <p>No filler — just clear actions to grow your channel.</p>
+        </div>
       </div>
-      <div class="feature-card glass">
-        <i class="pi pi-cog"></i>
-        <h3>⚙️ Flexible Tools</h3>
-        <p>Traffic sources, retention drill-downs — more coming soon.</p>
+      <div class="col-12 col-md-6">
+        <div class="feature-card glass">
+          <i class="pi pi-cog"></i>
+          <h3>⚙️ Flexible Tools</h3>
+          <p>Traffic sources, retention drill-downs — more coming soon.</p>
+        </div>
+      </div>
       </div>
     </div>
   </section>
 
   <!-- HOW IT WORKS -->
   <section class="how-it-works fullpage" 
-           appInViewport 
-           (inViewport)="onViewportChange('howItWorks', $event)" 
-           [class.visible]="sectionVisible.howItWorks">
+          appInViewport 
+          (inViewport)="onViewportChange('howItWorks', $event)" 
+          [class.visible]="sectionVisible.howItWorks">
     <h2>How It Works</h2>
     <div class="steps">
-      <div class="step">
-        <h3>1️⃣ Connect Your Channel</h3>
-        <p>Secure OAuth — no password sharing.</p>
-      </div>
-      <div class="step">
-        <h3>2️⃣ Get Your Dashboard</h3>
-        <p>See what matters most at a glance.</p>
-      </div>
-      <div class="step">
-        <h3>3️⃣ Take Action</h3>
-        <p>Use data-backed insights to grow.</p>
+      <div class="row">
+        <div class="col-12 col-md-4 mb1">
+          <div class="step glass">
+            <h3>1️⃣ Connect Securely with Google</h3>
+            <div class="pi pi-google"></div>
+            <p>We use official Google OAuth 2.0 — you sign in directly through Google. We never see or store your password.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 mb1">
+          <div class="step glass">
+            <h3>2️⃣ Fetch Data Directly from YouTube</h3>
+            <div class="pi pi-youtube"></div>
+            <p>Vantage pulls your analytics data live using the YouTube Data API. No data is stored on our servers — everything stays between you and YouTube.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="step glass">
+            <h3>3️⃣ Get Private, Actionable Insights</h3>
+            <div class="pi pi-lock"></div>
+            <p>Your data is processed instantly in your browser to generate reports and recommendations. Nothing is saved, shared, or sent anywhere else.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
 
   <!-- ABOUT -->
   <section class="about fullpage" 
@@ -85,12 +109,12 @@
   </section>
 
   <!-- CTA FOOTER -->
-  <section class="cta-section fullpage" 
+  <section class="cta fullpage" 
            appInViewport 
            (inViewport)="onViewportChange('cta', $event)" 
            [class.visible]="sectionVisible.cta">
     <h2>Ready to unlock your data?</h2>
     <p>Connect your channel and see insights in minutes.</p>
-    <a routerLink="/auth" pButton class="p-button-rounded p-button-lg">Get Started Now</a>
+    <a (click)="login()" pButton class="p-button-rounded p-button-lg">Login with Google</a>
   </section>
 </div>
