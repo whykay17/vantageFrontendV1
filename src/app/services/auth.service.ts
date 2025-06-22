@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class AuthService {
+
+  backendURL=environment.apiUrl;
+
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
@@ -15,11 +19,12 @@ export class AuthService {
   }
 
   login() {
-    window.location.href = 'http://localhost:5000/login';
+    window.location.href = this.backendURL+'login';
   }
 
   logout() {
-    this.http.get('http://localhost:5000/logout', { withCredentials: true }).subscribe(() => {
+    const logoutUrl= this.backendURL+'logout';
+    this.http.get(logoutUrl, { withCredentials: true }).subscribe(() => {
       localStorage.removeItem('isAuthenticated');
       this.isAuthenticatedSubject.next(false);
       sessionStorage.clear();
@@ -28,7 +33,8 @@ export class AuthService {
   }
 
   checkAuth() {
-    this.http.get<{ authenticated: boolean }>('http://localhost:5000/check-auth').subscribe({
+    const authURL=this.backendURL+'check-auth';
+    this.http.get<{ authenticated: boolean }>(authURL).subscribe({
       next: (res) => {
         this.isAuthenticatedSubject.next(res.authenticated);
         if (res.authenticated) {

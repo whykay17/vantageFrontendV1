@@ -1,12 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
   })
 
   export class VideoService {
-    backendURL = 'http://localhost:5000/'
+    backendURL = environment.apiUrl;
     rootUrl = 'video/'
     private videoList = this.backendURL+this.rootUrl+'list';
     private videoOverview = this.backendURL+this.rootUrl+'overview?';

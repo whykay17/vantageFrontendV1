@@ -1,5 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "../../environments/environment";
+
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +9,7 @@ import { Injectable } from "@angular/core";
 
 export class DashboardService {
 
-    backendURL = 'http://localhost:5000/'
+    backendURL = environment.apiUrl;
     rootUrl = 'channel/'
     private overview = this.backendURL+this.rootUrl+'overview';
     private period = this.backendURL+this.rootUrl+'period-stats?';
