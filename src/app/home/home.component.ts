@@ -217,7 +217,12 @@ export class HomeComponent {
     if (value >= 1_000) {
       return (value / 1_000).toFixed(1).replace(/\.0$/, '') + 'K';
     }
-    return value.toString();
+    if(value){
+      return value.toString();
+    }else{
+      return '0';
+    }
+    
   }
   
   receiveRange(range: { start: string, end: string }) {
