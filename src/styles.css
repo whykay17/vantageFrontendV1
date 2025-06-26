@@ -1,19 +1,19 @@
 @import "../node_modules/primeicons/primeicons.css";
 
 :root {
-    --primaryColor: #d3cfff;
-    --secondaryColor: #4285f4;
-    --textColor:#f0f8ff;
-    --logoColor:#d3cfff;
+  --primaryColor: #d3cfff;
+  --secondaryColor: #4285f4;
+  --textColor: #f0f8ff;
+  --logoColor: #d3cfff;
 
-    --logoFont:"Gugi", sans-serif;
-    --font1: "Roboto", sans-serif;
-    --font2: "Chakra Petch", sans-serif;
+  --logoFont: "Gugi", sans-serif;
+  --font1: "Roboto", sans-serif;
+  --font2: "Chakra Petch", sans-serif;
 }
 
 *{
-    padding: 0;
-    box-sizing: border-box;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .m0 { margin: 0 !important; }
@@ -27,20 +27,6 @@
 .w100 { width: 100% !important; }
 .h100 { height: 100% !important; }
 
-.glass{
-    background-color: rgba(240, 248, 255, 0.098) !important;
-    border-radius: 0.5rem!important;
-    backdrop-filter: blur(0.5rem);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.147);
-    transition: 0.3s ease-in-out;
-}
-
-.glass:hover{
-    transform: scale(1.01);
-}
-
 .pt1{ padding-top: 1rem; }
 .pb1{ padding-bottom: 1rem; }
 .pl1{ padding-left: 1rem; }
@@ -51,16 +37,58 @@
 
 .m1{ margin: 1rem; }
 
+.glass {
+  background-color: rgba(240, 248, 255, 0.110) !important;
+  border-radius: 0.5rem !important;
+  backdrop-filter: blur(0.5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.147);
+  transition: box-shadow 0.4s ease-in-out, border 0.4s ease-in-out;
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(circle at top left,
+      rgba(153, 0, 255, 0.1),
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.glass:hover::before {
+  opacity: 1;
+}
+
+.glass:hover {
+  box-shadow: 0 0 16px rgba(153, 0, 255, 0.242);
+}
+
 @media (max-width: 900px) {
-    html {
-      font-size: 14px;
-    }
+  html {
+    font-size: 14px;
   }
 
-@media (min-width:2560px){
-    html{
-        font-size:18px;
-    }
+  .glass::before,
+  .glass:hover::before {
+    content: none !important;
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  .glass:hover {
+    box-shadow: none !important;
+  }
+}
+
+@media (min-width:2560px) {
+  html {
+    font-size: 18px;
+  }
 }
 
 /* ANIMATIONS */
@@ -69,21 +97,23 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes fadeInSide{
-    from{
-        opacity: 0;
-        transform: translateX(200px);
-    }
-    to{
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes fadeInSide {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes bounce {

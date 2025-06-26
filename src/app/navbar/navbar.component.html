@@ -1,7 +1,3 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
-
 <div class="navContainer">
     <nav id="navbar">
         <div class="logo">
@@ -16,7 +12,6 @@
                 <li><a href="videos">Videos</a></li>
                 <li><a href="requests">Requests</a></li>
                 <li>
-                    @if(isAuthenticated){<button (click)="login()" class="glass">Login</button>}
                     <button (click)="logout()" class="glass">Logout</button>
                 </li>
             </ul>
@@ -29,24 +24,6 @@
     </nav>
 </div>
 <div class="navSpacer"></div>
-<!-- <div class="menuContainer" [class.active]="isMenuOpen">
-    <div class="menu">
-        <div class="menuContent">
-            <button class="menuClose" (click)="toggleMenu()">✖</button>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="reports">Reports</a></li>
-                <li><a href="tools">Tools</a></li>
-                <li><a href="requests">Requests</a></li>
-                <li>
-                    @if(!isAuthenticated){<button (click)="login()" class="glass">Login</button>}
-                    @else{<button (click)="logout()" class="glass">Logout</button>}
-                </li>
-            </ul>
-        </div>
-        
-    </div>
-</div> -->
 <p-drawer [(visible)]="isMenuOpen" header="Menu" position="right">
     <div class="menuContent">
         <ul>
@@ -55,8 +32,7 @@
             <li><a href="videos">Videos</a></li>
             <li><a href="requests">Requests</a></li>
             <li>
-                @if(!isAuthenticated){<p-button (click)="login()" class="glass">Login</p-button>}
-                @else{<p-button (click)="logout()" class="glass">Logout</p-button>}
+                <p-button (click)="logout()" class="glass">Logout</p-button>
             </li>
         </ul>
     </div>

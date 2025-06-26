@@ -70,10 +70,6 @@ nav {
         transition: 0.3s ease-in-out;
     }
 
-    li:hover{
-        transform: scale(1.1);
-    }
-
     a {
         font-size: 1.25rem;
         cursor: pointer;
@@ -100,7 +96,6 @@ nav {
       
       button:hover {
         color: #4285f4;
-        transform: scale(1.05);
       }
       
 }
@@ -156,7 +151,7 @@ nav {
         padding-bottom: 24px;
     }
 
-    a {
+    .menuContent a {
         cursor: pointer;
         text-decoration: none;
         color: #f1f0ff;

@@ -22,11 +22,7 @@
     font:var(--font1);
     color: var(--textColor);
   }
-  
-  .reportCard:hover {
-    transform: scale(1.05);
-  }
-  
+
   .reportModal {
     position: fixed;
     top: 0;
