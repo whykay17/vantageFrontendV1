@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +19,9 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    this.checkAuth();
+    private router:Router,
+    @Inject(PLATFORM_ID) private platformId: Object) {
+      this.checkAuth();
   }
 
   login() {
@@ -34,31 +34,27 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       const logoutUrl = this.backendURL + 'logout';
       this.http.get(logoutUrl, { withCredentials: true }).subscribe(() => {
-        localStorage.removeItem('isAuthenticated');
         sessionStorage.clear();
         this.isAuthenticatedSubject.next(false);
-        window.location.reload();
+        this.router.navigate(['/']);
       });
     }
   }
 
   checkAuth() {
     const authURL = this.backendURL + 'check-auth';
-    this.http.get<{ authenticated: boolean }>(authURL).subscribe({
-      next: (res) => {
-        this.isAuthenticatedSubject.next(res.authenticated);
-        if (res.authenticated && isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('isAuthenticated', 'true');
+    this.http.get<{ authenticated: boolean }>(authURL, { withCredentials: true })
+      .subscribe({
+        next: (res) => {
+          this.isAuthenticatedSubject.next(res.authenticated);
+        },
+        error: () => {
+          this.isAuthenticatedSubject.next(false);
+          if (isPlatformBrowser(this.platformId)) {
+            sessionStorage.clear();
+          }
         }
-      },
-      error: () => {
-        this.isAuthenticatedSubject.next(false);
-        if (isPlatformBrowser(this.platformId)) {
-          localStorage.removeItem('isAuthenticated');
-          sessionStorage.clear();
-        }
-      }
-    });
+      });
   }
 
   getStorage(itemName: string) {
@@ -74,6 +70,4 @@ export class AuthService {
       sessionStorage.setItem(itemName, JSON.stringify(value));
     }
   }
-
-
 }

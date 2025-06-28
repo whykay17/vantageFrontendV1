@@ -17,6 +17,9 @@ export class LandingPageComponent{
 
   constructor(private router:Router,private spinner:NgxSpinnerService,public authService: AuthService) {}
 
+
+  authStatus: boolean = false;
+
   sectionVisible = {
     hero: false,
     features: false,
@@ -26,20 +29,22 @@ export class LandingPageComponent{
   };
 
   onViewportChange(section: keyof typeof this.sectionVisible, event: boolean) {
-    console.log(`Viewport change: ${section}`, event);
     this.sectionVisible[section] = event;
   }
 
   login(){
-    this.authService.login();
+    if(this.authStatus){
+      this.router.navigate(['/home']);
+    }else{
+      this.authService.login();
+    }
   }
 
   ngOnInit() {
     this.spinner.show();
-    this.authService.isAuthenticated$.subscribe(auth =>{
-      // this.router.navigate(['/home']);
-    })
+    this.authService.isAuthenticated$.subscribe((auth) => {
+      this.authStatus = auth;
+    });
     this.spinner.hide();
   }
-
 }
