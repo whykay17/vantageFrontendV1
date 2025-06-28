@@ -75,7 +75,7 @@ nav {
         cursor: pointer;
         text-decoration: none;
         color: var(--textColor);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: var(--headerFont);
         padding: 0.5rem 1rem;
         transition: 0.2s ease-in-out;
     }
@@ -155,7 +155,7 @@ nav {
         cursor: pointer;
         text-decoration: none;
         color: #f1f0ff;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: var(--headerFont);
         padding: 20%;
     }
 

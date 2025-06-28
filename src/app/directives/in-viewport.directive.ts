@@ -11,7 +11,6 @@ export class InViewportDirective implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (typeof IntersectionObserver === 'undefined') {
-      console.warn('IntersectionObserver is not available (probably SSR).');
       return;
     }
 

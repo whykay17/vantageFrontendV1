@@ -47,4 +47,12 @@ export class LandingPageComponent{
     });
     this.spinner.hide();
   }
+
+  scrollTo(sectionId: string) {
+    console.log(`Scrolling to section: ${sectionId}`);
+    const element = document.getElementsByClassName(sectionId);
+    if (element) {
+      element[0].scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }

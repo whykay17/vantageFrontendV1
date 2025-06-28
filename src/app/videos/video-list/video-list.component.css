@@ -6,6 +6,11 @@
     color: var(--textColor);
 }
 
+h1{
+    font-family: var(--headerFont);
+    font-weight: 450;
+}
+
 .video-item {
     display: flex;
     flex-direction: column;

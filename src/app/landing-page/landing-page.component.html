@@ -1,6 +1,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Tomorrow:wght@400;500;600&display=swap" rel="stylesheet">
+
 <div class="landing-container">
   <!-- HERO -->
   <section class="hero fullpage" 
@@ -18,48 +20,61 @@
       </div>
     </div>
     <div class="scroll-indicator">
-      <span class="arrow pi pi-angle-down"></span>
+      <span class="arrow pi pi-angle-down" (click)="scrollTo('features')"></span>
     </div>
   </section>
 
   <!-- FEATURES -->
-  <section class="features fullpage" 
-           appInViewport 
-           (inViewport)="onViewportChange('features', $event)" 
-           [class.visible]="sectionVisible.features">
-    <h2>What You Get</h2>
-    <div class="features-grid">
-      <div class="row">
-        <div class="col-12 col-md-6">
-        <div class="feature-card glass">
-          <i class="pi pi-chart-bar"></i>
-          <h3>📊 Custom Dashboards</h3>
-          <p>Track subscribers, views, retention — focused on *your* channel’s goals.</p>
-        </div>
-      </div>
+<section class="features fullpage" 
+         appInViewport 
+         (inViewport)="onViewportChange('features', $event)" 
+         [class.visible]="sectionVisible.features">
+  <h2>What You Get</h2>
+  <div class="features-grid">
+    <div class="row">
       <div class="col-12 col-md-6">
-        <div class="feature-card glass">
-          <i class="pi pi-users"></i>
-          <h3>🔎 Deep Audience Insights</h3>
-          <p>Understand who’s watching, where, and how — plan smarter content.</p>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="feature-card glass">
-          <i class="pi pi-bolt"></i>
-          <h3>🚀 Growth-Focused Reports</h3>
-          <p>No filler — just clear actions to grow your channel.</p>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="feature-card glass">
-          <i class="pi pi-cog"></i>
-          <h3>⚙️ Flexible Tools</h3>
-          <p>Traffic sources, retention drill-downs — more coming soon.</p>
-        </div>
-      </div>
+      <div class="glass feature-card">
+        <i class="pi pi-chart-bar pb1"></i>
+        <h3>📈 Complete Channel Dashboard</h3>
+        <p>Track all your key stats — views, subscribers, watch time — across your entire channel at a glance.</p>
       </div>
     </div>
+    <div class="col-12 col-md-6">
+      <div class="glass feature-card">
+        <i class="pi pi-users pb1"></i>
+        <h3>🎯 Audience Deep Dive</h3>
+        <p>Break down your viewers by country, age, gender & device — know exactly who’s tuning in.</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="glass feature-card">
+        <i class="pi pi-bolt pb1"></i>
+        <h3>🚀 Smart Growth Reports</h3>
+        <p>Clear, custom reports that highlight what’s working and what to do next.</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="glass feature-card">
+        <i class="pi pi-cog pb1"></i>
+        <h3>🎥 Video-Level Analytics</h3>
+        <p>Drill down into any video to see it's stats and performance in detail.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ABOUT -->
+  <section class="about fullpage" 
+           appInViewport 
+           (inViewport)="onViewportChange('about', $event)" 
+           [class.visible]="sectionVisible.about">
+    <h2>Why Vantage?</h2>
+    <p>
+      Built by a creator, for creators. Vantage blends software expertise and a passion for data 
+      to give you reports that actually help you grow. Your data is safe — we only access what’s needed.
+    </p>
   </section>
 
   <!-- HOW IT WORKS -->
@@ -84,7 +99,7 @@
             <p>Vantage pulls your analytics data live so that no data is stored on our servers — everything stays between you and YouTube.</p>
           </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 mb1">
           <div class="step glass">
             <h3>3️⃣ Get Private, Actionable Insights</h3>
             <div class="pi pi-lock"></div>
@@ -93,19 +108,6 @@
         </div>
       </div>
     </div>
-  </section>
-
-
-  <!-- ABOUT -->
-  <section class="about fullpage" 
-           appInViewport 
-           (inViewport)="onViewportChange('about', $event)" 
-           [class.visible]="sectionVisible.about">
-    <h2>Why Vantage?</h2>
-    <p>
-      Built by a creator, for creators. Vantage blends software expertise and a passion for data 
-      to give you reports that actually help you grow. Your data is safe — we only access what’s needed.
-    </p>
   </section>
 
   <!-- CTA FOOTER -->

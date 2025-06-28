@@ -69,6 +69,7 @@ export class HomeComponent {
   showDateRange:boolean=false;
   rangeSection:string=''
   today=new Date()
+  spinnerCount:number = 0;
 
   rangeData = [
     { name: "7 days", value: '9' },
@@ -224,6 +225,21 @@ export class HomeComponent {
     }
     
   }
+
+  showSpinner() {
+    if (this.spinnerCount === 0) {
+      this.spinner.show();
+    }
+    this.spinnerCount++;
+  }
+
+  hideSpinner() {
+    this.spinnerCount--;
+    if (this.spinnerCount <= 0) {
+      this.spinnerCount = 0;
+      this.spinner.hide();
+    }
+  }
   
   receiveRange(range: { start: string, end: string }) {
     if (this.rangeSection && range) {
@@ -284,131 +300,131 @@ export class HomeComponent {
   }
 
   getDashboardAPI() {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getDashboardData().subscribe({next:(data) => {
       this.dashboardData = data;
       sessionStorage.setItem('overviewData', JSON.stringify(data));
-      this.spinner.hide();
+      this.hideSpinner();
       },
       error:()=>{
-        this.spinner.hide();
+        this.hideSpinner();
       }
     })
   }
 
   getPeriodAPI(dateRange: { start: string, end: string }) {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getPeriodStats(dateRange).subscribe({
       next: (data) => {
         this.periodData = data;
         // this.rangeDefaults.period = `${dateRange.start} - ${dateRange.end}`;
         sessionStorage.setItem('periodData', JSON.stringify(data));
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }
 
   getLatestVideoAPI(){
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getLatestVideoStats().subscribe({
       next:(data) => {
         this.latestVideoData=data;
         sessionStorage.setItem('latestVideoData', JSON.stringify(data));
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }
 
   getBestVideoAPI(dateRange: { start: string, end: string }) {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getBestVideo(dateRange).subscribe({
       next: (data) => {
         this.bestVideoData = data;
         sessionStorage.setItem('bestVideoData', JSON.stringify(data));
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }
 
   getEngagementAPI(dateRange: { start: string, end: string }) {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getEngagementStats(dateRange).subscribe({
       next: (data) => {
         this.engagementData = data;
         this.setEngagementCharts(data);
         sessionStorage.setItem('engagementData', JSON.stringify(data));
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }
 
   getSubscriberAPI(dateRange: { start: string, end: string }) {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getSubscriberStats(dateRange).subscribe({
       next: (data) => {
         this.setSubscriberCharts(data);
         sessionStorage.setItem('subscriberData', JSON.stringify(data));
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }
 
   getTrafficSourcesAPI(dateRange: { start: string, end: string }) {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getTrafficSources(dateRange).subscribe({
       next: (data) => {
         this.setTrafficSourcesCharts(data);
         sessionStorage.setItem('trafficSourcesData', JSON.stringify(data));
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }
 
   getRetentionAPI(dateRange: { start: string, end: string }) {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getRetentionStats(dateRange).subscribe({
       next: (data) => {
         this.retentionLineData = data?.line_data || {};
         this.setRetentionCharts(data);
         sessionStorage.setItem('retentionData', JSON.stringify(data));
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }
 
   getDemographicsAPI(dateRange: { start: string, end: string }) {
-    this.spinner.show();
+    this.showSpinner();
     this.dashboardService.getDemographics(dateRange).subscribe({
       next: (data) => {
         this.demographicsData = data;
         sessionStorage.setItem('demographicsData', JSON.stringify(data));
         this.setDemographicsCharts(data);
         this.setTreemapChart(data?.country || []);
-        this.spinner.hide();
+        this.hideSpinner();
       },
       error: () => {
-        this.spinner.hide();
+        this.hideSpinner();
       }
     });
   }

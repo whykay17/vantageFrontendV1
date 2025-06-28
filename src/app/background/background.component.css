@@ -38,7 +38,7 @@
     top: -20%;
     left: -20%;
     background: radial-gradient(circle at 30% 30%, rgba(200, 0, 255, 0.35), transparent 45%);
-    animation: roam1 12s ease-in-out infinite alternate;
+    animation: roam1 9s ease-in-out infinite alternate;
   }
 
   /* Blob 2 – deep blue */
@@ -47,7 +47,7 @@
     top: -25%;
     left: -10%;
     background: radial-gradient(circle at 70% 60%, rgba(0, 100, 255, 0.3), transparent 45%);
-    animation: roam2 14s ease-in-out infinite alternate;
+    animation: roam2 11s ease-in-out infinite alternate;
   }
 
   /* Blob 3 – pink edge */
@@ -55,7 +55,7 @@
     top: -10%;
     left: 40%;
     background: radial-gradient(circle at 40% 40%, rgba(255, 0, 200, 0.3), transparent 45%);
-    animation: roam3 8s ease-in-out infinite alternate;
+    animation: roam3 6s ease-in-out infinite alternate;
   }
 
   /* Blob 4 – dark violet */
@@ -63,15 +63,15 @@
     top: 20%;
     left: 20%;
     background: radial-gradient(circle at 50% 50%, rgba(100, 0, 200, 0.28), transparent 45%);
-    animation: roam4 11s ease-in-out infinite alternate;
+    animation: roam4 9s ease-in-out infinite alternate;
   }
 
   /* Blob 5 – pink-purple */
   .background .blob5 {
     top: 10%;
     left: 70%;
-    background: radial-gradient(circle at 60% 60%, rgba(150, 0, 255, 0.3), transparent 45%);
-    animation: roam5 7s ease-in-out infinite alternate;
+    background: radial-gradient(circle at 60% 60%, rgba(161, 29, 255, 0.3), transparent 45%);
+    animation: roam5 5s ease-in-out infinite alternate;
   }
 
   @keyframes roam1 {
@@ -130,19 +130,19 @@
   .background::after,
 
   .background .blob3 {
-    animation: roam5 16s ease-in-out infinite alternate;
+    animation: none;
     filter: blur(30px);
     opacity: 0.35;
   }
 
   .background .blob4 {
-    animation: roam4 16s ease-in-out infinite alternate;
+    animation: none;
     filter: blur(30px);
     opacity: 0.35;
   }
 
   .background .blob5 {
-    animation: roam5 16s ease-in-out infinite alternate;
+    animation: none;
     filter: blur(30px);
     opacity: 0.35;
   }
